@@ -75,17 +75,17 @@ namespace WebApplication_Auction.Migrations
 
             migrationBuilder.InsertData(
                 table: "AuctionDbs",
-                columns: new[] { "Id", "Date", "Desc", "ExDate", "Name", "Price", "UserId" },
+                columns: new[] { "Id", "StartingDate", "Description", "StartingDate", "Name", "StartingBid", "UserId" },
                 values: new object[] { -1, new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3920), "OLED TV from Samsung", new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified), "TV", 150, -1 });
 
             migrationBuilder.InsertData(
                 table: "BidDbs",
-                columns: new[] { "Id", "Amount", "AuctionId", "Date" },
+                columns: new[] { "Id", "Amount", "AuctionId", "StartingDate" },
                 values: new object[] { -2, 80, -1, new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3978) });
 
             migrationBuilder.InsertData(
                 table: "BidDbs",
-                columns: new[] { "Id", "Amount", "AuctionId", "Date" },
+                columns: new[] { "Id", "Amount", "AuctionId", "StartingDate" },
                 values: new object[] { -1, 50, -1, new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3976) });
 
             migrationBuilder.CreateIndex(

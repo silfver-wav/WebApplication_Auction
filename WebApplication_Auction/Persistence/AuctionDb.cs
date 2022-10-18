@@ -14,18 +14,18 @@ namespace WebApplication_Auction.Persistence
 
         [Required]
         [MaxLength(500)]
-        public string Desc { get; set; }
+        public string Description { get; set; }
 
         [Required]
-        public int Price { get; set; }
-
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime ExDate { get; set; }
+        public int StartingBid { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Date { get; set; }
+        public DateTime ExpirationDate { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime StartingDate { get; set; }
 
         // FK
         [ForeignKey("UserId")]

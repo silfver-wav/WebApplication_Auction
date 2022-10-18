@@ -25,10 +25,10 @@ namespace WebApplication_Auction.Persistence
             {
                 Id = -1,
                 Name = "TV",
-                Desc = "OLED TV from Samsung",
-                Price = 150,
-                Date = DateTime.Now,
-                ExDate = new DateTime(2023, 12, 12, 2, 30, 50),
+                Description = "OLED TV from Samsung",
+                StartingBid = 150,
+                StartingDate = DateTime.Now,
+                ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50),
                 UserId = -1
             };
             modelBuilder.Entity<AuctionDb>().HasData(adb);

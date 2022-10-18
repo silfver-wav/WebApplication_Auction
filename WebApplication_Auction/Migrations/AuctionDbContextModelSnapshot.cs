@@ -30,15 +30,15 @@ namespace WebApplication_Auction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Desc")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("ExDate")
+                    b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -46,7 +46,7 @@ namespace WebApplication_Auction.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int>("Price")
+                    b.Property<int>("StartingBid")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -85,7 +85,7 @@ namespace WebApplication_Auction.Migrations
                     b.Property<int>("AuctionId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("StartingDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
