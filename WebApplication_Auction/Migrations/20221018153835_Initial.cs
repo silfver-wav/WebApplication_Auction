@@ -30,10 +30,10 @@ namespace WebApplication_Auction.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Desc = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    ExDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    StartingBid = table.Column<int>(type: "int", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -75,18 +75,18 @@ namespace WebApplication_Auction.Migrations
 
             migrationBuilder.InsertData(
                 table: "AuctionDbs",
-                columns: new[] { "Id", "StartingDate", "Description", "StartingDate", "Name", "StartingBid", "UserId" },
-                values: new object[] { -1, new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3920), "OLED TV from Samsung", new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified), "TV", 150, -1 });
+                columns: new[] { "Id", "Description", "ExpirationDate", "Name", "StartingBid", "StartingDate", "UserId" },
+                values: new object[] { -1, "OLED TV from Samsung", new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified), "TV", 150, new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2205), -1 });
 
             migrationBuilder.InsertData(
                 table: "BidDbs",
-                columns: new[] { "Id", "Amount", "AuctionId", "StartingDate" },
-                values: new object[] { -2, 80, -1, new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3978) });
+                columns: new[] { "Id", "Amount", "AuctionId", "Date" },
+                values: new object[] { -2, 80, -1, new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2311) });
 
             migrationBuilder.InsertData(
                 table: "BidDbs",
-                columns: new[] { "Id", "Amount", "AuctionId", "StartingDate" },
-                values: new object[] { -1, 50, -1, new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3976) });
+                columns: new[] { "Id", "Amount", "AuctionId", "Date" },
+                values: new object[] { -1, 50, -1, new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2305) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuctionDbs_UserId",

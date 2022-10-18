@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApplication_Auction.Core;
 using WebApplication_Auction.Core.Interfaces;
+using WebApplication_Auction.Viewmodels;
 
 namespace WebApplication_Auction.Controllers
 {
@@ -14,21 +15,26 @@ namespace WebApplication_Auction.Controllers
             _auctionService = service;
         }
 
-
-
         // GET: AuctionsController
         public ActionResult Index()
         {
             List<Auction> auctions = _auctionService.GetAll();
-            return View(auctions);
+            List<AuctionVM> auctionVMs = new();
+            foreach (var auction in auctions)
+            {
+                auctionVMs.Add(AuctionVM.FromAuction(auction));
+            }
+            return View(auctionVMs);
         }
 
         // GET: AuctionsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Auction auction = _auctionService.GetById(id);
+            AuctionDetailsVM detailsVM = AuctionDetailsVM.FromAuction(auction);
+            return View(detailsVM);
         }
-        /*
+
         // GET: AuctionsController/Create
         public ActionResult Create()
         {
@@ -38,18 +44,22 @@ namespace WebApplication_Auction.Controllers
         // POST: AuctionsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateAuctionVM vm)
         {
-            try
+            if(ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                Auction auction = new Auction()
+                {
+                    Name = vm.Name,
+                    Description = vm.Description,
+                    StartingBid = vm.StartingBid
+                };
+                _auctionService.Add(auction);
+                return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(vm);
         }
-
+        /*
         // GET: AuctionsController/Edit/5
         public ActionResult Edit(int id)
         {
@@ -92,5 +102,6 @@ namespace WebApplication_Auction.Controllers
             }
         }
         */
+        
     }
 }

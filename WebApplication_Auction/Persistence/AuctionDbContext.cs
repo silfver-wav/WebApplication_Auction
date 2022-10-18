@@ -29,7 +29,8 @@ namespace WebApplication_Auction.Persistence
                 StartingBid = 150,
                 StartingDate = DateTime.Now,
                 ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50),
-                UserId = -1
+                UserId = -1,
+                BidDbs = new List<BidDb>()
             };
             modelBuilder.Entity<AuctionDb>().HasData(adb);
 
@@ -38,7 +39,7 @@ namespace WebApplication_Auction.Persistence
                 Id = -1,
                 Amount = 50,
                 Date = DateTime.Now,
-                AuctionId = -1
+                AuctionId = -1,
             };
             BidDb bdb2 = new BidDb()
             {

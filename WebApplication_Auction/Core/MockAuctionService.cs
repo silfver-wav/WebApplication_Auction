@@ -17,5 +17,18 @@ namespace WebApplication_Auction.Core
             auctions.Add(a2);
             return auctions;
         }
+
+        public Auction GetById(int id)
+        {
+            DateTime expirationDate = DateTime.Now;
+            Auction a = new Auction(1, "TV", "Samsung OLED tv", 1500, expirationDate);
+            a.AddBid(new Core.Bid(1, 3200));
+            return a;
+        }
+
+        public void Add(Auction auction)
+        {
+
+        }
     }
 }

@@ -12,7 +12,7 @@ using WebApplication_Auction.Persistence;
 namespace WebApplication_Auction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221018120209_Initial")]
+    [Migration("20221018153835_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,15 +32,12 @@ namespace WebApplication_Auction.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime>("StartingDate")
+                    b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -50,6 +47,9 @@ namespace WebApplication_Auction.Migrations
 
                     b.Property<int>("StartingBid")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("StartingDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -64,11 +64,11 @@ namespace WebApplication_Auction.Migrations
                         new
                         {
                             Id = -1,
-                            Date = new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3920),
-                            Desc = "OLED TV from Samsung",
-                            ExDate = new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified),
+                            Description = "OLED TV from Samsung",
+                            ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified),
                             Name = "TV",
-                            Price = 150,
+                            StartingBid = 150,
+                            StartingDate = new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2205),
                             UserId = -1
                         });
                 });
@@ -87,7 +87,7 @@ namespace WebApplication_Auction.Migrations
                     b.Property<int>("AuctionId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartingDate")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -102,14 +102,14 @@ namespace WebApplication_Auction.Migrations
                             Id = -1,
                             Amount = 50,
                             AuctionId = -1,
-                            Date = new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3976)
+                            Date = new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2305)
                         },
                         new
                         {
                             Id = -2,
                             Amount = 80,
                             AuctionId = -1,
-                            Date = new DateTime(2022, 10, 18, 14, 2, 9, 101, DateTimeKind.Local).AddTicks(3978)
+                            Date = new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2311)
                         });
                 });
 

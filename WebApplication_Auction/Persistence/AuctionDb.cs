@@ -32,7 +32,6 @@ namespace WebApplication_Auction.Persistence
         public UserDb UserDb { get; set; }
         public int UserId { get; set; }
 
-        // public List<BidDb> BidDbs { get; set; } = new List<BidDb>();
-
+        public IEnumerable<BidDb> BidDbs { get; set; } = new List<BidDb>();
     }
 }
