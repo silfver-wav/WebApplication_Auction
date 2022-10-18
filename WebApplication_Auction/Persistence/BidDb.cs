@@ -16,9 +16,10 @@ namespace WebApplication_Auction.Persistence
         public DateTime Date { get; set; }
 
 
-        // FK
+        // FK and navigation property
         [ForeignKey("AuctionId")]
         public AuctionDb AuctionDb { get; set; }
 
+        public int AuctionId { get; set; }
     }
 }
