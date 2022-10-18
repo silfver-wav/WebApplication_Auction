@@ -1,10 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using WebApplication_Auction.Core;
+using WebApplication_Auction.Core.Interfaces;
 using WebApplication_Auction.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IAuctionService, MockAuctionService>();
 
 // db, with dependency injection
 builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));

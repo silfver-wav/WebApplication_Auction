@@ -49,6 +49,10 @@ namespace WebApplication_Auction.Core
         
         private int FindHighestBid()
         {
+            if(_bids.Count == 0)
+            {
+                return 0;
+            }
             return _bids.Max(t => t.Amount);
             
         }
