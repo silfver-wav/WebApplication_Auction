@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication_Auction.Core;
 using WebApplication_Auction.Core.Interfaces;
@@ -6,6 +7,9 @@ using WebApplication_Auction.Viewmodels;
 
 namespace WebApplication_Auction.Controllers
 {
+    //Requires users to be authorized through Identity before performing actions
+    [Authorize]
+    // [AllowAnonymous] for the actions that dont require authorization
     public class AuctionsController : Controller
     {
         private readonly IAuctionService _auctionService;

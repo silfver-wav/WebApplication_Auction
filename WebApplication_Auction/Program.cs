@@ -2,6 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication_Auction.Core;
 using WebApplication_Auction.Core.Interfaces;
 using WebApplication_Auction.Persistence;
+using Microsoft.AspNetCore.Identity;
+using WebApplication_Auction.Data;
+using WebApplication_Auction.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,13 @@ builder.Services.AddScoped<IAuctionPersistence, AuctionSqlPersistence>();
 
 // db, with dependency injection
 builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
+
+
+builder.Services.AddDbContext<WebApplication_AuctionIdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(
+    "WebApplication_AuctionIdentityContextConnection")));
+builder.Services.AddDefaultIdentity<WebApplication_AuctionUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<WebApplication_AuctionIdentityContext>();
+
 
 // add auto mapper scanning (requires AutoMapper package)
 builder.Services.AddAutoMapper(typeof(Program));
@@ -31,11 +41,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
