@@ -31,6 +31,8 @@ namespace WebApplication_Auction.Persistence
         [ForeignKey("UserId")]
         public UserDb UserDb { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; }
+
 
         public IEnumerable<BidDb> BidDbs { get; set; } = new List<BidDb>();
     }

@@ -2,7 +2,7 @@
 {
     public interface IAuctionPersistence
     {
-        List<Auction> GetAll();
+        List<Auction> GetAllByUserName(string userName);
 
         Auction GetById(int id);
 

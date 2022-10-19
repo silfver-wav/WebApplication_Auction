@@ -30,5 +30,10 @@ namespace WebApplication_Auction.Core
         {
 
         }
+
+        public List<Auction> GetAllByUserName(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

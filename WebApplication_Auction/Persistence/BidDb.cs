@@ -6,7 +6,7 @@ namespace WebApplication_Auction.Persistence
     public class BidDb
     {
         [Key]
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         [Required]
         public int Amount { get; set; }
@@ -21,5 +21,6 @@ namespace WebApplication_Auction.Persistence
         public AuctionDb AuctionDb { get; set; }
 
         public int AuctionId { get; set; }
+        public int Id { get;  set; }
     }
 }

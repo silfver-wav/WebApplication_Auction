@@ -8,6 +8,8 @@ using WebApplication_Auction.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuctionService, AuctionService>();
@@ -18,8 +20,11 @@ builder.Services.AddScoped<IAuctionPersistence, AuctionSqlPersistence>();
 builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
 
 
-builder.Services.AddDbContext<WebApplication_AuctionIdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(
-    "WebApplication_AuctionIdentityContextConnection")));
+builder.Services.AddDbContext<WebApplication_AuctionIdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("WebApplication_AuctionIdentityContextConnection")));
+
+builder.Services.AddDbContext<WebApplication_AuctionIdentityContext>(options => options.EnableSensitiveDataLogging());
+
 builder.Services.AddDefaultIdentity<WebApplication_AuctionUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<WebApplication_AuctionIdentityContext>();
 

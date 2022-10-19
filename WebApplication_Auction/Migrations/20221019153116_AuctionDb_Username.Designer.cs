@@ -12,8 +12,8 @@ using WebApplication_Auction.Persistence;
 namespace WebApplication_Auction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221018153835_Initial")]
-    partial class Initial
+    [Migration("20221019153116_AuctionDb_Username")]
+    partial class AuctionDb_Username
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,10 @@ namespace WebApplication_Auction.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AuctionId");
 
                     b.HasIndex("UserId");
@@ -68,8 +72,9 @@ namespace WebApplication_Auction.Migrations
                             ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified),
                             Name = "TV",
                             StartingBid = 150,
-                            StartingDate = new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2205),
-                            UserId = -1
+                            StartingDate = new DateTime(2022, 10, 19, 17, 31, 16, 180, DateTimeKind.Local).AddTicks(3649),
+                            UserId = -1,
+                            UserName = "user123"
                         });
                 });
 
@@ -102,14 +107,14 @@ namespace WebApplication_Auction.Migrations
                             Id = -1,
                             Amount = 50,
                             AuctionId = -1,
-                            Date = new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2305)
+                            Date = new DateTime(2022, 10, 19, 17, 31, 16, 180, DateTimeKind.Local).AddTicks(3695)
                         },
                         new
                         {
                             Id = -2,
                             Amount = 80,
                             AuctionId = -1,
-                            Date = new DateTime(2022, 10, 18, 17, 38, 34, 821, DateTimeKind.Local).AddTicks(2311)
+                            Date = new DateTime(2022, 10, 19, 17, 31, 16, 180, DateTimeKind.Local).AddTicks(3698)
                         });
                 });
 
@@ -157,12 +162,17 @@ namespace WebApplication_Auction.Migrations
             modelBuilder.Entity("WebApplication_Auction.Persistence.BidDb", b =>
                 {
                     b.HasOne("WebApplication_Auction.Persistence.AuctionDb", "AuctionDb")
-                        .WithMany()
+                        .WithMany("BidDbs")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AuctionDb");
+                });
+
+            modelBuilder.Entity("WebApplication_Auction.Persistence.AuctionDb", b =>
+                {
+                    b.Navigation("BidDbs");
                 });
 #pragma warning restore 612, 618
         }

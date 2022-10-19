@@ -17,10 +17,10 @@ namespace WebApplication_Auction.Persistence
             _mapper = mapper;
         }
 
-        public List<Auction> GetAll()
+        public List<Auction> GetAllByUserName(string userName)
         {
             var auctionDbs = _dbContext.AuctionDbs
-                //.Where(p => true)
+                .Where(p => p.UserName.Equals(userName))
                 .ToList();
 
             List<Auction> result = new List<Auction>();

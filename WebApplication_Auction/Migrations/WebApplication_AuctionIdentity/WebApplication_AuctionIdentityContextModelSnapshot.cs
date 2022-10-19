@@ -24,7 +24,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("AuctionId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -39,7 +39,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -51,11 +51,11 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuctionId"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -67,7 +67,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.HasIndex("RoleId");
 
@@ -76,11 +76,11 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuctionId"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -92,7 +92,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.HasIndex("UserId");
 
@@ -161,7 +161,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("WebApplication_Auction.Areas.Identity.Data.WebApplication_AuctionUser", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("AuctionId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
@@ -211,7 +211,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");

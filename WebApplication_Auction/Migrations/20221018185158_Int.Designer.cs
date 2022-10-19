@@ -26,11 +26,11 @@ namespace WebApplication_Auction.Migrations
 
             modelBuilder.Entity("WebApplication_Auction.Persistence.AuctionDb", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuctionId"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -54,7 +54,7 @@ namespace WebApplication_Auction.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.HasIndex("UserId");
 
@@ -75,11 +75,11 @@ namespace WebApplication_Auction.Migrations
 
             modelBuilder.Entity("WebApplication_Auction.Persistence.BidDb", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuctionId"), 1L, 1);
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -90,7 +90,7 @@ namespace WebApplication_Auction.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.HasIndex("AuctionId");
 
@@ -115,11 +115,11 @@ namespace WebApplication_Auction.Migrations
 
             modelBuilder.Entity("WebApplication_Auction.Persistence.UserDb", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuctionId"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -130,7 +130,7 @@ namespace WebApplication_Auction.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AuctionId");
 
                     b.ToTable("UserDbs");
 

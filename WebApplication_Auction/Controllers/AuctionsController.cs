@@ -22,7 +22,8 @@ namespace WebApplication_Auction.Controllers
         // GET: AuctionsController
         public ActionResult Index()
         {
-            List<Auction> auctions = _auctionService.GetAll();
+            string userName = User.Identity.Name;
+            List<Auction> auctions = _auctionService.GetAllByUserName(userName);
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
             {
