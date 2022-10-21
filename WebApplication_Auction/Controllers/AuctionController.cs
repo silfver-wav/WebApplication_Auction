@@ -41,7 +41,8 @@ namespace ProjectApp.Controllers
 
         public ActionResult OnGoingAuctions()
         {
-            List<Auction> auctions = _projectService.GetAllOnGoing();
+            string userName = User.Identity.Name; // should be unique
+            List<Auction> auctions = _projectService.GetAllByUserName(userName);
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
             {

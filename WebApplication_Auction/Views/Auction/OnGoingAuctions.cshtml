@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<ProjectApp.ViewModels.AuctionVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "OnGoingAuctions";
 }
 
-<h1>All projects</h1>
+<h1>OnGoingAuctions</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
-</p>
-<p>
-    <a asp-action="OnGoingAuctions">Users Auctions</a>
 </p>
 <table class="table">
     <thead>
@@ -22,16 +19,16 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartingPrice)
+                @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                @Html.DisplayNameFor(model => model.StartingPrice)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ExpirationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsCompleted)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th></th>
         </tr>
@@ -46,21 +43,19 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingPrice)
+                @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
+                @Html.DisplayFor(modelItem => item.StartingPrice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExpirationDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsCompleted)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("AddBid", "AddBid", new { id=item.Id })
+                @Html.ActionLink("Details", "Details", new { id=item.Id })
             </td>
         </tr>
 }

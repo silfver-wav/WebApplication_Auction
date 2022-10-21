@@ -19,6 +19,7 @@ namespace ProjectApp.Persistence
 
         public List<Auction> GetAllByUserName(string userName)
         {
+            /*
             var projectDbs = _dbContext.ProjectDbs
                 .Where(p => p.UserName.Equals(userName)) // updated for Identity
                 .ToList();
@@ -28,6 +29,25 @@ namespace ProjectApp.Persistence
             {
                 Auction project = _mapper.Map<Auction>(pdb);
                 result.Add(project);
+            }
+
+            return result;
+            */
+            var projectDbs = _dbContext.ProjectDbs
+            .Where(p => p.UserName.Equals(userName)) // updated for Identity
+            .ToList();
+
+
+            List<BidDb> bidsDb = _dbContext.TaskDbs.Where(p => p.UserName == userName).ToList();
+
+            List<Auction> result = new List<Auction>();
+            for (int i = 0; i < bidsDb.Count; i++)
+            {
+                int id = bidsDb[i].ProjectId;
+                var adb = _dbContext.ProjectDbs.Where(p => p.Id == id && p.ExpirationDate.CompareTo(DateTime.Now) > 0).SingleOrDefault();
+                if (adb == null)
+                    continue;
+                result.Add(_mapper.Map<Auction>(adb));
             }
 
             return result;
