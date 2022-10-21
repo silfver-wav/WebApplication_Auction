@@ -74,5 +74,21 @@ namespace ProjectApp.Persistence
             _dbContext.TaskDbs.Add(pdb);
             _dbContext.SaveChanges();
         }
+
+        public List<Auction> GetAllOnGoing(DateTime dateTime)
+        {
+            var projectDbs = _dbContext.ProjectDbs
+            .Where(p => p.ExpirationDate.CompareTo(dateTime)>0) // updated for Identity
+            .ToList();
+
+            List<Auction> result = new List<Auction>();
+            foreach (AuctionDb pdb in projectDbs)
+            {
+                Auction project = _mapper.Map<Auction>(pdb);
+                result.Add(project);
+            }
+
+            return result;
+        }
     }
 }

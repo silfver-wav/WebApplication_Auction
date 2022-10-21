@@ -16,19 +16,22 @@ namespace ProjectApp.ViewModels
 
         public DateTime ExpirationDate { get; set; }
 
+        public string UserName { get; set; }
+
         public bool IsCompleted { get; set;  }
 
-        public static AuctionVM FromAuction(Auction project)
+        public static AuctionVM FromAuction(Auction auction)
         {
             return new AuctionVM()
             {
-                Id = project.Id,
-                Title = project.Title,
-                Description = project.Description,
-                CreatedDate = project.CreatedDate,
-                ExpirationDate = project.ExpirationDate,
-                StartingPrice = project.StartingPrice,
-                IsCompleted = project.IsCompleted()
+                Id = auction.Id,
+                Title = auction.Title,
+                Description = auction.Description,
+                CreatedDate = auction.CreatedDate,
+                ExpirationDate = auction.ExpirationDate,
+                StartingPrice = auction.StartingPrice,
+                IsCompleted = auction.IsCompleted(),
+                UserName = auction.UserName
             };
         }
     }

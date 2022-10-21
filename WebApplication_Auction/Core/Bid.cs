@@ -10,6 +10,8 @@
         public DateTime LastUpdated { get; set; }
 
         private Status _status;
+
+        public string UserName { get; set; }
         public Status Status
         {
             get => _status;
@@ -22,11 +24,12 @@
             }
         }
 
-        public Bid(int amount, Status status = Status.TO_DO)
+        public Bid(int amount, Status status = Status.TO_DO, string userName = null)
         {
             Amount = amount;
             _lastUpdated = DateTime.Now;
             _status = status;
+            UserName = userName;
         }
 
         public Bid(int id, string descr, Status status = Status.TO_DO)

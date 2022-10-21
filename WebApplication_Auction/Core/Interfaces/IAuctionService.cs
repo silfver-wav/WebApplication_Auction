@@ -10,5 +10,7 @@
         void Update(int id, string description);
 
         void AddBid(int id, Bid bid);
+
+        List<Auction> GetAllOnGoing();
     }
 }

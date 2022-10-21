@@ -13,14 +13,17 @@ namespace ProjectApp.ViewModels
 
         public Status Status { get; set; }
 
-        public static BidVM FromTask(Bid task)
+        public string UserName { get; set; }
+
+        public static BidVM FromBid(Bid task)
         {
             return new BidVM()
             {
                 Id = task.Id,
                 Amount = task.Amount,
                 LastUpdated = task.LastUpdated,
-                Status = task.Status
+                Status = task.Status,
+                UserName = task.UserName,
             };
         }
     }

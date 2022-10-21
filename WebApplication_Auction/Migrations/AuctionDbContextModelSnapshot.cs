@@ -3,19 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectApp.Persistence;
 
 #nullable disable
 
-namespace ProjectApp.Migrations
+namespace WebApplication_Auction.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20221021151422_Initial")]
-    partial class Initial
+    partial class AuctionDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,7 +61,7 @@ namespace ProjectApp.Migrations
                         new
                         {
                             Id = -1,
-                            CreatedDate = new DateTime(2022, 10, 21, 17, 14, 21, 866, DateTimeKind.Local).AddTicks(541),
+                            CreatedDate = new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3311),
                             Description = "description",
                             ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified),
                             StartingPrice = 20,
@@ -92,6 +90,10 @@ namespace ProjectApp.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
@@ -103,17 +105,19 @@ namespace ProjectApp.Migrations
                         {
                             Id = -1,
                             Amount = 50,
-                            LastUpdated = new DateTime(2022, 10, 21, 17, 14, 21, 866, DateTimeKind.Local).AddTicks(888),
+                            LastUpdated = new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3651),
                             ProjectId = -1,
-                            Status = 1
+                            Status = 1,
+                            UserName = "linus@kth.se"
                         },
                         new
                         {
                             Id = -2,
                             Amount = 100,
-                            LastUpdated = new DateTime(2022, 10, 21, 17, 14, 21, 866, DateTimeKind.Local).AddTicks(897),
+                            LastUpdated = new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3655),
                             ProjectId = -1,
-                            Status = 0
+                            Status = 0,
+                            UserName = "victor@kth.se"
                         });
                 });
 

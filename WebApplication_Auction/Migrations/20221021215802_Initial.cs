@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ProjectApp.Migrations
+namespace WebApplication_Auction.Migrations
 {
     public partial class Initial : Migration
     {
@@ -36,7 +36,8 @@ namespace ProjectApp.Migrations
                     Amount = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,17 +53,17 @@ namespace ProjectApp.Migrations
             migrationBuilder.InsertData(
                 table: "ProjectDbs",
                 columns: new[] { "Id", "CreatedDate", "Description", "ExpirationDate", "StartingPrice", "Title", "UserName" },
-                values: new object[] { -1, new DateTime(2022, 10, 21, 17, 14, 21, 866, DateTimeKind.Local).AddTicks(541), "description", new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified), 20, "Learning ASP.NET Core with MVC", "linus.silfver@gmail.com" });
+                values: new object[] { -1, new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3311), "description", new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified), 20, "Learning ASP.NET Core with MVC", "linus.silfver@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "TaskDbs",
-                columns: new[] { "Id", "Amount", "LastUpdated", "ProjectId", "Status" },
-                values: new object[] { -2, 100, new DateTime(2022, 10, 21, 17, 14, 21, 866, DateTimeKind.Local).AddTicks(897), -1, 0 });
+                columns: new[] { "Id", "Amount", "LastUpdated", "ProjectId", "Status", "UserName" },
+                values: new object[] { -2, 100, new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3655), -1, 0, "victor@kth.se" });
 
             migrationBuilder.InsertData(
                 table: "TaskDbs",
-                columns: new[] { "Id", "Amount", "LastUpdated", "ProjectId", "Status" },
-                values: new object[] { -1, 50, new DateTime(2022, 10, 21, 17, 14, 21, 866, DateTimeKind.Local).AddTicks(888), -1, 1 });
+                columns: new[] { "Id", "Amount", "LastUpdated", "ProjectId", "Status", "UserName" },
+                values: new object[] { -1, 50, new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3651), -1, 1, "linus@kth.se" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskDbs_ProjectId",

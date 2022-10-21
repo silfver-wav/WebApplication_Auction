@@ -17,24 +17,27 @@ namespace ProjectApp.ViewModels
 
         public bool IsCompleted { get; set; }
 
-        public List<BidVM> TaskVMs { get; set; } = new();
+        public List<BidVM> BidsVMs { get; set; } = new();
 
-        public static AuctionDetailsVM FromProject(Auction project)
+        public string UserName { get; set; }
+
+        public static AuctionDetailsVM FromProject(Auction auction)
         {
             var detailsVM = new AuctionDetailsVM()
             {
-                Id = project.Id,
-                Title = project.Title,
-                Description = project.Description,
-                CreatedDate = project.CreatedDate,
-                ExpirationDate = project.ExpirationDate,
-                StartingPrice = project.StartingPrice,
-                IsCompleted = project.IsCompleted()
+                Id = auction.Id,
+                Title = auction.Title,
+                Description = auction.Description,
+                CreatedDate = auction.CreatedDate,
+                ExpirationDate = auction.ExpirationDate,
+                StartingPrice = auction.StartingPrice,
+                IsCompleted = auction.IsCompleted(),
+                UserName = auction.UserName
 
             };
-            foreach(var task in project.Bids)
+            foreach(var task in auction.Bids)
             {
-                detailsVM.TaskVMs.Add(BidVM.FromTask(task));
+                detailsVM.BidsVMs.Add(BidVM.FromBid(task));
             }
 
             return detailsVM;

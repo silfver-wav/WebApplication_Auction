@@ -30,7 +30,8 @@ namespace ProjectApp.Persistence
                 Amount = 50,
                 LastUpdated = DateTime.Now,
                 Status = Core.Status.IN_PROGRESS,
-                ProjectId = -1, 
+                ProjectId = -1,
+                UserName = "linus@kth.se"
             };
             BidDb tdb2 = new BidDb()
             {
@@ -38,7 +39,8 @@ namespace ProjectApp.Persistence
                 Amount = 100,
                 LastUpdated = DateTime.Now,
                 Status = Core.Status.TO_DO,
-                ProjectId = -1
+                ProjectId = -1,
+                UserName = "victor@kth.se"
             };
             modelBuilder.Entity<BidDb>().HasData(tdb1);
             modelBuilder.Entity<BidDb>().HasData(tdb2);

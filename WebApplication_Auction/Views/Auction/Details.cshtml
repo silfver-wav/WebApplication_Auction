@@ -28,6 +28,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsCompleted)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
     </dl>
 </div>
 <p/>
@@ -43,13 +49,13 @@
                    <b>Last update</b>
                 </th>
                 <th>
-                   <b>Status</b>
+                   <b>UserName</b>
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.TaskVMs)
+            @foreach (var item in Model.BidsVMs)
             {
                 <tr>
                     <td>
@@ -59,10 +65,7 @@
                         @Html.DisplayFor(modelItem => item.LastUpdated)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit task", "EditTask", new { id = item.Id })
+                        @Html.DisplayFor(modelItem => item.UserName)
                     </td>
                 </tr>
             }

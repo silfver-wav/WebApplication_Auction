@@ -20,10 +20,30 @@ namespace ProjectApp.Controllers
         // GET: ProjectsController
         public ActionResult Index()
         {
+            /*
             string userName = User.Identity.Name; // should be unique
             List<Auction> auctions = _projectService.GetAllByUserName(userName);
             List<AuctionVM> auctionVMs = new();
             foreach(var auction in auctions)
+            {
+                auctionVMs.Add(AuctionVM.FromAuction(auction));
+            }
+            return View(auctionVMs);
+            */
+            List<Auction> auctions = _projectService.GetAllOnGoing();
+            List<AuctionVM> auctionVMs = new();
+            foreach (var auction in auctions)
+            {
+                auctionVMs.Add(AuctionVM.FromAuction(auction));
+            }
+            return View(auctionVMs);
+        }
+
+        public ActionResult OnGoingAuctions()
+        {
+            List<Auction> auctions = _projectService.GetAllOnGoing();
+            List<AuctionVM> auctionVMs = new();
+            foreach (var auction in auctions)
             {
                 auctionVMs.Add(AuctionVM.FromAuction(auction));
             }
@@ -107,7 +127,8 @@ namespace ProjectApp.Controllers
             {
                 Bid bid = new Bid()
                 {
-                    Amount = vm.Amount
+                    Amount = vm.Amount,
+                    UserName = User.Identity.Name
                 };
 
                 _projectService.AddBid(id, bid);

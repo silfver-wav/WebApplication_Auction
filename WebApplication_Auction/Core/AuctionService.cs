@@ -43,5 +43,10 @@ namespace ProjectApp.Core
             bid.LastUpdated = DateTime.Now;
             _auctionPersitence.AddBid(id, bid);
         }
+
+        public List<Auction> GetAllOnGoing()
+        {
+            return _auctionPersitence.GetAllOnGoing(DateTime.Now);
+        }
     }
 }
