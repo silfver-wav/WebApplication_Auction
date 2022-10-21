@@ -7,7 +7,7 @@
         public int Amount { get; set; }
 
         private DateTime _lastUpdated;
-        public DateTime LastUpdated { get => _lastUpdated; }
+        public DateTime LastUpdated { get; set; }
 
         private Status _status;
         public Status Status
@@ -22,9 +22,9 @@
             }
         }
 
-        public Bid(string descr, Status status = Status.TO_DO)
+        public Bid(int amount, Status status = Status.TO_DO)
         {
-            //Description = descr;
+            Amount = amount;
             _lastUpdated = DateTime.Now;
             _status = status;
         }

@@ -55,5 +55,24 @@ namespace ProjectApp.Persistence
             _dbContext.ProjectDbs.Add(pdb);
             _dbContext.SaveChanges();
         }
+
+        public void Update(int id, string description)
+        {
+             var auctionDb = _dbContext.ProjectDbs
+            .Where(p => p.Id == id)
+            .SingleOrDefault();
+
+            auctionDb.Description = description;
+            _dbContext.Update(auctionDb);
+            _dbContext.SaveChanges();
+        }
+
+        public void AddBid(int id, Bid bid)
+        {
+            BidDb pdb = _mapper.Map<BidDb>(bid);
+            pdb.ProjectId = id;
+            _dbContext.TaskDbs.Add(pdb);
+            _dbContext.SaveChanges();
+        }
     }
 }

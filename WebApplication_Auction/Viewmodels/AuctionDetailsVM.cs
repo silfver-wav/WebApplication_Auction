@@ -32,7 +32,7 @@ namespace ProjectApp.ViewModels
                 IsCompleted = project.IsCompleted()
 
             };
-            foreach(var task in project.Tasks)
+            foreach(var task in project.Bids)
             {
                 detailsVM.TaskVMs.Add(BidVM.FromTask(task));
             }

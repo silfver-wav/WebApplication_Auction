@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectApp.Core;
 using ProjectApp.Core.Interfaces;
 using ProjectApp.ViewModels;
+using WebApplication_Auction.ViewModels;
 
 namespace ProjectApp.Controllers
 {
@@ -51,13 +52,16 @@ namespace ProjectApp.Controllers
         // POST: ProjectsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AuctionProjectVM vm)
+        public ActionResult Create(CreateAuctionVM vm)
         {
             if(ModelState.IsValid)
             {
                 Auction project = new Auction()
                 {
                     Title = vm.Title,
+                    Description = vm.Description,
+                    ExpirationDate = vm.ExpirationDate,
+                    StartingPrice = vm.StartingPrice,
                     UserName = User.Identity.Name
                 };
                 _projectService.Add(project);
@@ -66,29 +70,54 @@ namespace ProjectApp.Controllers
             return View(vm);
         }
 
+
+
+        // GET: ProjectsController/Edit/5
+        public ActionResult Edit(int id)
+        {
+          return View();
+        }
+
+        // POST: ProjectsController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, EditAuctionVM vm)
+        {
+          try
+          {
+              _projectService.Update(id, vm.Description);
+               return RedirectToAction("Index");
+            }
+          catch
+          {
+              return View(vm);
+          }
+        }
+
+        public ActionResult AddBid(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddBid(int id, CreateBidVM vm)
+        {
+            if (ModelState.IsValid)
+            {
+                Bid bid = new Bid()
+                {
+                    Amount = vm.Amount
+                };
+
+                _projectService.AddBid(id, bid);
+                return RedirectToAction("Index");
+            }
+            return View(vm);
+        }
+
+
         /*
-
-// GET: ProjectsController/Edit/5
-public ActionResult Edit(int id)
-{
-  return View();
-}
-
-// POST: ProjectsController/Edit/5
-[HttpPost]
-[ValidateAntiForgeryToken]
-public ActionResult Edit(int id, IFormCollection collection)
-{
-  try
-  {
-      return RedirectToAction(nameof(Index));
-  }
-  catch
-  {
-      return View();
-  }
-}
-
 // GET: ProjectsController/Delete/5
 public ActionResult Delete(int id)
 {

@@ -24,5 +24,7 @@ namespace ProjectApp.Persistence
         public AuctionDb ProjectDb { get; set; }
 
         public int ProjectId { get; set; }
+
+        //public string UserName { get; set; }
     }
 }

@@ -1,21 +1,20 @@
-﻿namespace ProjectApp.Core
+﻿using NuGet.Packaging.Signing;
+
+namespace ProjectApp.Core
 {
     public class Auction
     {
         public int Id { get; set; }
-
         public string Title { get; set; }
-
         public string Description { get; set; }
-
         public DateTime CreatedDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public int StartingPrice { get; set; } 
 
         public string UserName { get; set; }
 
-        private List<Bid> _tasks = new List<Bid>();
-        public IEnumerable<Bid> Tasks => _tasks;
+        private List<Bid> _bids = new List<Bid>();
+        public IEnumerable<Bid> Bids => _bids;
 
         public Auction(string title)
         {
@@ -41,13 +40,23 @@
 
         public void AddTask(Bid newTask)
         {
-            _tasks.Add(newTask);
+            _bids.Add(newTask);
         }
 
         public bool IsCompleted()
         {
-            if (_tasks.Count == 0) return true;
-            return _tasks.All(t => t.Status == Status.DONE);
+            if (_bids.Count == 0) return true;
+            return _bids.All(t => t.Status == Status.DONE);
+        }
+
+        public int FindHighestBid()
+        {
+            if (_bids.Count == 0)
+            {
+                return 0;
+            }
+            return _bids.Max(t => t.Amount);
+
         }
 
         public override string ToString()
