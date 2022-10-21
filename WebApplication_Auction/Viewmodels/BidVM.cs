@@ -1,21 +1,26 @@
-﻿using WebApplication_Auction.Core;
+﻿using ProjectApp.Core;
+using Bid = ProjectApp.Core.Bid;
 
-namespace WebApplication_Auction.Viewmodels
+namespace ProjectApp.ViewModels
 {
     public class BidVM
     {
         public int Id { get; set; }
+
         public int Amount { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime LastUpdated { get; set; }
 
-        public static BidVM FromBid(Bid bid)
+        public Status Status { get; set; }
+
+        public static BidVM FromTask(Bid task)
         {
             return new BidVM()
             {
-                Id = bid.Id,
-                Amount = bid.Amount,
-                Date = bid.Date
+                Id = task.Id,
+                Amount = task.Amount,
+                LastUpdated = task.LastUpdated,
+                Status = task.Status
             };
         }
     }

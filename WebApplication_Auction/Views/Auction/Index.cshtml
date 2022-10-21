@@ -1,10 +1,10 @@
-﻿@model IEnumerable<WebApplication_Auction.Viewmodels.AuctionVM>
+﻿@model IEnumerable<ProjectApp.ViewModels.AuctionVM>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>All projects</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,19 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartingBid)
+                @Html.DisplayNameFor(model => model.StartingPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartingDate)
+                @Html.DisplayNameFor(model => model.CreatedDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ExpirationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCompleted)
             </th>
             <th></th>
         </tr>
@@ -34,24 +37,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingBid)
+                @Html.DisplayFor(modelItem => item.StartingPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StartingDate)
+                @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExpirationDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.DisplayFor(modelItem => item.IsCompleted)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) 
             </td>
         </tr>
 }

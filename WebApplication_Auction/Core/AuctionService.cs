@@ -1,31 +1,33 @@
-﻿using WebApplication_Auction.Core.Interfaces;
+﻿using ProjectApp.Core.Interfaces;
+using System.Diagnostics;
 
-namespace WebApplication_Auction.Core
+namespace ProjectApp.Core
 {
     public class AuctionService : IAuctionService
     {
-        private IAuctionPersistence _auctionPersistence;
+        private IAuctionPersistence _projectPersitence;
 
-        public AuctionService(IAuctionPersistence auctionPersistence)
+        public AuctionService(IAuctionPersistence projectPersitence)
         {
-            _auctionPersistence = auctionPersistence;
-        }
+            _projectPersitence = projectPersitence;
+        }   
 
-        public List<Auction> GetAll()
+        public List<Auction> GetAllByUserName(string userName)
         {
-            return _auctionPersistence.GetAll();
+            return _projectPersitence.GetAllByUserName(userName);
         }
 
         public Auction GetById(int id)
         {
-            return _auctionPersistence.GetById(id);
+            return _projectPersitence.GetById(id);
         }
 
-        public void Add(Auction auction)
+        public void Add(Auction project)
         {
-            if (auction == null || auction.Id != 0) throw new InvalidDataException();
-            auction.StartingDate = DateTime.Now;
-            _auctionPersistence.Add(auction);
+            // assume no tasks in new project
+            if (project == null || project.Id != 0) throw new InvalidDataException();
+            project.CreatedDate = DateTime.Now;
+            _projectPersitence.Add(project);    
         }
     }
 }

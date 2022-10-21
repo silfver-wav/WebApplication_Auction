@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using WebApplication_Auction.Core;
-using WebApplication_Auction.Core.Interfaces;
-using WebApplication_Auction.Persistence;
+using ProjectApp.Core;
+using ProjectApp.Core.Interfaces;
+using ProjectApp.Persistence;
 using Microsoft.AspNetCore.Identity;
-using WebApplication_Auction.Data;
-using WebApplication_Auction.Areas.Identity.Data;
+using ProjectApp.Data;
+using ProjectApp.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,14 +16,15 @@ builder.Services.AddScoped<IAuctionPersistence, AuctionSqlPersistence>();
 
 
 // db, with dependency injection
-builder.Services.AddDbContext<AuctionDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
+builder.Services.AddDbContext<AuctionDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionDbConnection")));
 
-
-builder.Services.AddDbContext<WebApplication_AuctionIdentityContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString(
-    "WebApplication_AuctionIdentityContextConnection")));
-builder.Services.AddDefaultIdentity<WebApplication_AuctionUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<WebApplication_AuctionIdentityContext>();
-
+// identity configuration
+// the first statement is missing from the scaffolding
+builder.Services.AddDbContext<ProjectAppIdentityContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectAppIdentityContextConnection")));
+builder.Services.AddDefaultIdentity<ProjectAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ProjectAppIdentityContext>();
 
 // add auto mapper scanning (requires AutoMapper package)
 builder.Services.AddAutoMapper(typeof(Program));
@@ -50,5 +52,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
-
+app.MapRazorPages();
 app.Run();

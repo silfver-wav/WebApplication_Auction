@@ -14,16 +14,16 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using WebApplication_Auction.Areas.Identity.Data;
+using ProjectApp.Areas.Identity.Data;
 
-namespace WebApplication_Auction.Areas.Identity.Pages.Account
+namespace ProjectApp.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<WebApplication_AuctionUser> _signInManager;
+        private readonly SignInManager<ProjectAppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<WebApplication_AuctionUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ProjectAppUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

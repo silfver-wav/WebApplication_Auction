@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
-using WebApplication_Auction.Core;
-using WebApplication_Auction.Core.Interfaces;
+using ProjectApp.Core;
+using ProjectApp.Core.Interfaces;
+using Bid = ProjectApp.Core.Bid;
 
-namespace WebApplication_Auction.Persistence
+namespace ProjectApp.Persistence
 {
     public class AuctionSqlPersistence : IAuctionPersistence
     {
@@ -17,17 +17,17 @@ namespace WebApplication_Auction.Persistence
             _mapper = mapper;
         }
 
-        public List<Auction> GetAll()
+        public List<Auction> GetAllByUserName(string userName)
         {
-            var auctionDbs = _dbContext.AuctionDbs
-                //.Where(p => true)
+            var projectDbs = _dbContext.ProjectDbs
+                .Where(p => p.UserName.Equals(userName)) // updated for Identity
                 .ToList();
 
             List<Auction> result = new List<Auction>();
-            foreach(AuctionDb adb in auctionDbs)
+            foreach(AuctionDb pdb in projectDbs)
             {
-                Auction auction = _mapper.Map<Auction>(adb);
-                result.Add(auction);   
+                Auction project = _mapper.Map<Auction>(pdb);
+                result.Add(project);
             }
 
             return result;
@@ -36,25 +36,24 @@ namespace WebApplication_Auction.Persistence
         public Auction GetById(int id)
         {
             // eager loading
-            var auctionDb = _dbContext.AuctionDbs
-                .Include(p => p.BidDbs)
+            var projectDb = _dbContext.ProjectDbs
+                .Include(p => p.TaskDbs)
                 .Where(p => p.Id == id)
                 .SingleOrDefault();
 
-            Auction auction = _mapper.Map<Auction>(auctionDb);
-            foreach(BidDb bdb in auctionDb.BidDbs)
+            Auction project = _mapper.Map<Auction>(projectDb);
+            foreach(BidDb tdb in projectDb.TaskDbs)
             {
-                auction.AddBid(_mapper.Map<Bid>(bdb));
+                project.AddTask(_mapper.Map<Bid>(tdb));
             }
-            return auction;
+            return project;
         }
 
-        public void Add(Auction auction)
+        public void Add(Auction project)
         {
-            AuctionDb adb = _mapper.Map<AuctionDb>(auction);    
-            _dbContext.AuctionDbs.Add(adb);
+            AuctionDb pdb = _mapper.Map<AuctionDb>(project);
+            _dbContext.ProjectDbs.Add(pdb);
             _dbContext.SaveChanges();
         }
-
     }
 }

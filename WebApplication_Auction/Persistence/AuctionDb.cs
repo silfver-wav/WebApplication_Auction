@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebApplication_Auction.Persistence
+namespace ProjectApp.Persistence
 {
     public class AuctionDb
     {
@@ -10,28 +9,26 @@ namespace WebApplication_Auction.Persistence
 
         [Required]
         [MaxLength(128)]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [Required]
-        [MaxLength(500)]
+        [MaxLength(128)]
         public string Description { get; set; }
 
         [Required]
-        public int StartingBid { get; set; }
+        public string UserName { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime CreatedDate { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime ExpirationDate { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime StartingDate { get; set; }
+        public int StartingPrice { get; set; }
 
-        // FK
-        [ForeignKey("UserId")]
-        public UserDb UserDb { get; set; }
-        public int UserId { get; set; }
-
-        public IEnumerable<BidDb> BidDbs { get; set; } = new List<BidDb>();
+        public List<BidDb> TaskDbs { get; set; } = new List<BidDb>();
     }
 }

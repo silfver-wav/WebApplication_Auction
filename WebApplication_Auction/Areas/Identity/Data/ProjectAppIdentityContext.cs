@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApplication_Auction.Areas.Identity.Data;
+using ProjectApp.Areas.Identity.Data;
 
-namespace WebApplication_Auction.Data;
+namespace ProjectApp.Data;
 
-public class WebApplication_AuctionIdentityContext : IdentityDbContext<WebApplication_AuctionUser>
+public class ProjectAppIdentityContext : IdentityDbContext<ProjectAppUser>
 {
-    public WebApplication_AuctionIdentityContext(DbContextOptions<WebApplication_AuctionIdentityContext> options)
+    public ProjectAppIdentityContext(DbContextOptions<ProjectAppIdentityContext> options)
         : base(options)
     {
     }

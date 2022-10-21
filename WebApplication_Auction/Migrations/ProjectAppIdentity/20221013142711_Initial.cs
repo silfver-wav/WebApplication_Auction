@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
+namespace ProjectApp.Migrations.ProjectAppIdentity
 {
     public partial class Initial : Migration
     {

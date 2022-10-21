@@ -1,28 +1,55 @@
-﻿namespace WebApplication_Auction.Core
+﻿namespace ProjectApp.Core
 {
     public class Bid
     {
         public int Id { get; set; }
+
         public int Amount { get; set; }
 
-        public DateTime Date { get; set; }
+        private DateTime _lastUpdated;
+        public DateTime LastUpdated { get => _lastUpdated; }
 
-        public Bid(int amount)
+        private Status _status;
+        public Status Status
         {
-            Amount = amount;
-            Date = DateTime.Now;
+            get => _status;
+            set
+            {
+                if (_status == Status.DONE && value != Status.DONE) 
+                    throw new InvalidOperationException("item is done");
+                _status = value;
+                _lastUpdated = DateTime.Now;
+            }
         }
-        public Bid(int id, int amount)
+
+        public Bid(string descr, Status status = Status.TO_DO)
+        {
+            //Description = descr;
+            _lastUpdated = DateTime.Now;
+            _status = status;
+        }
+
+        public Bid(int id, string descr, Status status = Status.TO_DO)
         {
             Id = id;
-            Amount = amount;
-            Date = DateTime.Now;
+            //Description = descr;
+            _lastUpdated = DateTime.Now;
+            _status = status;
         }
+
+        public Bid(int id, string descr, DateTime lastUpdated, Status status = Status.TO_DO)
+        {
+            Id = id;
+            //Description = descr;
+            _lastUpdated = lastUpdated;
+            _status = status;
+        }
+
         public Bid() { }
 
         public override string ToString()
         {
-            return $"{Id} {Amount} {Date}";
+            return $"{Id}: {Amount} - {Status}";
         }
     }
 }

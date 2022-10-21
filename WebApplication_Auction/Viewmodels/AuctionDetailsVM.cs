@@ -1,36 +1,40 @@
-﻿using WebApplication_Auction.Core;
+﻿using ProjectApp.Core;
 
-namespace WebApplication_Auction.Viewmodels
+namespace ProjectApp.ViewModels
 {
     public class AuctionDetailsVM
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public int StartingBid { get; set; }
-
-        public DateTime StartingDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public DateTime ExpirationDate { get; set; }
+        public int StartingPrice { get; set; }
 
-        public List<BidVM> BidVMs { get; set; } = new();
-        
-        public static AuctionDetailsVM FromAuction(Auction auction)
+        public bool IsCompleted { get; set; }
+
+        public List<BidVM> TaskVMs { get; set; } = new();
+
+        public static AuctionDetailsVM FromProject(Auction project)
         {
             var detailsVM = new AuctionDetailsVM()
             {
-                Id = auction.Id,
-                Name = auction.Name,
-                Description = auction.Description,
-                StartingBid = auction.StartingBid,
-                StartingDate = auction.StartingDate,
-                ExpirationDate = auction.ExpirationDate
+                Id = project.Id,
+                Title = project.Title,
+                Description = project.Description,
+                CreatedDate = project.CreatedDate,
+                ExpirationDate = project.ExpirationDate,
+                StartingPrice = project.StartingPrice,
+                IsCompleted = project.IsCompleted()
+
             };
-            foreach(var bid in auction.Bids)
+            foreach(var task in project.Tasks)
             {
-                detailsVM.BidVMs.Add(BidVM.FromBid(bid));
+                detailsVM.TaskVMs.Add(BidVM.FromTask(task));
             }
 
             return detailsVM;

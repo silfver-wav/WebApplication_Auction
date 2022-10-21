@@ -1,55 +1,47 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace WebApplication_Auction.Persistence
+namespace ProjectApp.Persistence
 {
     public class AuctionDbContext : DbContext
     {
         public AuctionDbContext(DbContextOptions<AuctionDbContext> options) : base(options) { }
 
-        public DbSet<BidDb> BidDbs { get; set; }
-        public DbSet<AuctionDb> AuctionDbs { get; set; }
-        public DbSet<UserDb> UserDbs { get; set; }
+        public DbSet<BidDb> TaskDbs { get; set; }
+        public DbSet<AuctionDb> ProjectDbs { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            UserDb udb = new UserDb()
+            AuctionDb pdb = new AuctionDb
             {
-                Id = -1,
-                Username = "user123",
-                Name = "the user"
-            };
-            modelBuilder.Entity<UserDb>().HasData(udb);
-
-            AuctionDb adb = new AuctionDb
-            {
-                Id = -1,
-                Name = "TV",
-                Description = "OLED TV from Samsung",
-                StartingBid = 150,
-                StartingDate = DateTime.Now,
+                Id = -1, // from seed data
+                Title = "Learning ASP.NET Core with MVC",
+                Description = "description",
+                CreatedDate = DateTime.Now,
                 ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50),
-                UserId = -1,
-                BidDbs = new List<BidDb>()
+                StartingPrice = 20,
+                UserName = "linus.silfver@gmail.com",
+                TaskDbs = new List<BidDb>()
             };
-            modelBuilder.Entity<AuctionDb>().HasData(adb);
-
-            BidDb bdb1 = new BidDb()
+            modelBuilder.Entity<AuctionDb>().HasData(pdb);
+            
+            BidDb tdb1 = new BidDb()
             {
                 Id = -1,
                 Amount = 50,
-                Date = DateTime.Now,
-                AuctionId = -1,
+                LastUpdated = DateTime.Now,
+                Status = Core.Status.IN_PROGRESS,
+                ProjectId = -1, 
             };
-            BidDb bdb2 = new BidDb()
+            BidDb tdb2 = new BidDb()
             {
                 Id = -2,
-                Amount = 80,
-                Date = DateTime.Now,
-                AuctionId = -1
+                Amount = 100,
+                LastUpdated = DateTime.Now,
+                Status = Core.Status.TO_DO,
+                ProjectId = -1
             };
-            modelBuilder.Entity<BidDb>().HasData(bdb1);
-            modelBuilder.Entity<BidDb>().HasData(bdb2);
+            modelBuilder.Entity<BidDb>().HasData(tdb1);
+            modelBuilder.Entity<BidDb>().HasData(tdb2);
         }
-    } 
+    }
 }

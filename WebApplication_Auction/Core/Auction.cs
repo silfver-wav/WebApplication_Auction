@@ -1,65 +1,58 @@
-﻿using System.Reflection;
-
-namespace WebApplication_Auction.Core
+﻿namespace ProjectApp.Core
 {
     public class Auction
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+
+        public string Title { get; set; }
 
         public string Description { get; set; }
 
-        public int StartingBid { get; set; }
-
-        private List<Bid> _bids = new List<Bid>();
-
-        public IEnumerable<Bid> Bids => _bids;
-
-        public DateTime StartingDate { get; set; }
-
+        public DateTime CreatedDate { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public int StartingPrice { get; set; } 
 
-        public Auction(string name, string desc, int price, DateTime expDate)
+        public string UserName { get; set; }
+
+        private List<Bid> _tasks = new List<Bid>();
+        public IEnumerable<Bid> Tasks => _tasks;
+
+        public Auction(string title)
         {
-            Name = name;
-            Description = desc;
-            StartingBid = price;
-            StartingDate = DateTime.Now;
-            ExpirationDate = expDate;
+            Title = title;
+            CreatedDate = DateTime.Now;
         }
 
-        public Auction(int id, string name, string desc, int price, DateTime expDate)
+        public Auction(int id, string title, DateTime createdDate)
         {
             Id = id;
-            Name = name;
-            Description = desc;
-            StartingBid = price;
-            StartingDate = DateTime.Now;
-            ExpirationDate = expDate;
+            Title = title;
+            CreatedDate = createdDate;
         }
+
+        public Auction(int id, string title)
+        {
+            Id = id;
+            Title = title;
+            CreatedDate = DateTime.Now;
+        }
+
         public Auction() { }
 
-        public void AddBid(Bid newBid)
+        public void AddTask(Bid newTask)
         {
-            if(newBid.Amount > FindHighestBid())
-            {
-                _bids.Add(newBid);
-            }
+            _tasks.Add(newTask);
         }
-        
-        private int FindHighestBid()
+
+        public bool IsCompleted()
         {
-            if(_bids.Count == 0)
-            {
-                return 0;
-            }
-            return _bids.Max(t => t.Amount);
-            
+            if (_tasks.Count == 0) return true;
+            return _tasks.All(t => t.Status == Status.DONE);
         }
-        
+
         public override string ToString()
         {
-            return $"{Id} {Name} {Description} {StartingBid}";
+            return $"{Id}: {Title} - completed: {IsCompleted()}";
         }
     }
 }

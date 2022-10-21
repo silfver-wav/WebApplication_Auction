@@ -18,23 +18,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using WebApplication_Auction.Areas.Identity.Data;
+using ProjectApp.Areas.Identity.Data;
 
-namespace WebApplication_Auction.Areas.Identity.Pages.Account
+namespace ProjectApp.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<WebApplication_AuctionUser> _signInManager;
-        private readonly UserManager<WebApplication_AuctionUser> _userManager;
-        private readonly IUserStore<WebApplication_AuctionUser> _userStore;
-        private readonly IUserEmailStore<WebApplication_AuctionUser> _emailStore;
+        private readonly SignInManager<ProjectAppUser> _signInManager;
+        private readonly UserManager<ProjectAppUser> _userManager;
+        private readonly IUserStore<ProjectAppUser> _userStore;
+        private readonly IUserEmailStore<ProjectAppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<WebApplication_AuctionUser> userManager,
-            IUserStore<WebApplication_AuctionUser> userStore,
-            SignInManager<WebApplication_AuctionUser> signInManager,
+            UserManager<ProjectAppUser> userManager,
+            IUserStore<ProjectAppUser> userStore,
+            SignInManager<ProjectAppUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -155,27 +155,27 @@ namespace WebApplication_Auction.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private WebApplication_AuctionUser CreateUser()
+        private ProjectAppUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<WebApplication_AuctionUser>();
+                return Activator.CreateInstance<ProjectAppUser>();
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(WebApplication_AuctionUser)}'. " +
-                    $"Ensure that '{nameof(WebApplication_AuctionUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ProjectAppUser)}'. " +
+                    $"Ensure that '{nameof(ProjectAppUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
 
-        private IUserEmailStore<WebApplication_AuctionUser> GetEmailStore()
+        private IUserEmailStore<ProjectAppUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<WebApplication_AuctionUser>)_userStore;
+            return (IUserEmailStore<ProjectAppUser>)_userStore;
         }
     }
 }

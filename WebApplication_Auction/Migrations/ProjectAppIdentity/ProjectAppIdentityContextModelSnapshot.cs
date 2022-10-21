@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication_Auction.Data;
+using ProjectApp.Data;
 
 #nullable disable
 
-namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
+namespace ProjectApp.Migrations.ProjectAppIdentity
 {
-    [DbContext(typeof(WebApplication_AuctionIdentityContext))]
-    partial class WebApplication_AuctionIdentityContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ProjectAppIdentityContext))]
+    partial class ProjectAppIdentityContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -159,7 +159,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebApplication_Auction.Areas.Identity.Data.WebApplication_AuctionUser", b =>
+            modelBuilder.Entity("ProjectApp.Areas.Identity.Data.ProjectAppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -235,7 +235,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebApplication_Auction.Areas.Identity.Data.WebApplication_AuctionUser", null)
+                    b.HasOne("ProjectApp.Areas.Identity.Data.ProjectAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -244,7 +244,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebApplication_Auction.Areas.Identity.Data.WebApplication_AuctionUser", null)
+                    b.HasOne("ProjectApp.Areas.Identity.Data.ProjectAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -259,7 +259,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication_Auction.Areas.Identity.Data.WebApplication_AuctionUser", null)
+                    b.HasOne("ProjectApp.Areas.Identity.Data.ProjectAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -268,7 +268,7 @@ namespace WebApplication_Auction.Migrations.WebApplication_AuctionIdentity
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebApplication_Auction.Areas.Identity.Data.WebApplication_AuctionUser", null)
+                    b.HasOne("ProjectApp.Areas.Identity.Data.ProjectAppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

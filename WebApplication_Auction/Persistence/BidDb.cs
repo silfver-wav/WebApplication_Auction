@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ProjectApp.Core;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication_Auction.Persistence
+namespace ProjectApp.Persistence
 {
     public class BidDb
     {
@@ -13,13 +14,15 @@ namespace WebApplication_Auction.Persistence
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Date { get; set; }
+        public DateTime LastUpdated { get; set; }
 
+        [Required]
+        public Status Status { get; set; }
 
         // FK and navigation property
-        [ForeignKey("AuctionId")]
-        public AuctionDb AuctionDb { get; set; }
+        [ForeignKey("ProjectId")]
+        public AuctionDb ProjectDb { get; set; }
 
-        public int AuctionId { get; set; }
+        public int ProjectId { get; set; }
     }
 }

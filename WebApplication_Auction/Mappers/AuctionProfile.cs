@@ -2,7 +2,7 @@
 using ProjectApp.Core;
 using ProjectApp.Persistence;
 
-namespace ProjectApp.Mappings
+namespace ProjectApp.Mappers
 {
     public class AuctionProfile : Profile
     {

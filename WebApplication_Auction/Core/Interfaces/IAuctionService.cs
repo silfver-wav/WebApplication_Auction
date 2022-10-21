@@ -1,10 +1,10 @@
-﻿namespace WebApplication_Auction.Core.Interfaces
+﻿namespace ProjectApp.Core.Interfaces
 {
     public interface IAuctionService
     {
-        List<Auction> GetAll();
+        List<Auction> GetAllByUserName(string userName);
         Auction GetById(int id);
 
-        void Add(Auction auction);
+        void Add(Auction project);  
     }
 }
