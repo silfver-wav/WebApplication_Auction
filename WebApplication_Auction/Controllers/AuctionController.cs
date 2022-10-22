@@ -25,16 +25,6 @@ namespace ProjectApp.Controllers
         // GET: ProjectsController
         public ActionResult Index()
         {
-            /*
-            string userName = User.Identity.Name; // should be unique
-            List<Auction> auctions = _projectService.GetAllByUserName(userName);
-            List<AuctionVM> auctionVMs = new();
-            foreach(var auction in auctions)
-            {
-                auctionVMs.Add(AuctionVM.FromAuction(auction));
-            }
-            return View(auctionVMs);
-            */
             List<Auction> auctions = _projectService.GetAllOnGoing();
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
@@ -47,7 +37,7 @@ namespace ProjectApp.Controllers
         public ActionResult OnGoingAuctions()
         {
             string userName = User.Identity.Name; // should be unique
-            List<Auction> auctions = _projectService.GetAllByUserName(userName);
+            List<Auction> auctions = _projectService.GetAllBidOnByUserName(userName);
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
             {
@@ -157,29 +147,46 @@ namespace ProjectApp.Controllers
             return View(userVMs);
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult ViewAllAuctionsByUser(string username)
+        {
+            List<Auction> auctions = _projectService.GetAllByUserName(username);
+            List<AuctionVM> auctionVMs = new();
+            foreach (var auction in auctions)
+            {
+                auctionVMs.Add(AuctionVM.FromAuction(auction));
+            }
+            return View(auctionVMs);
+        }
 
-        /*
-// GET: ProjectsController/Delete/5
-public ActionResult Delete(int id)
-{
-  return View();
-}
 
-// POST: ProjectsController/Delete/5
-[HttpPost]
-[ValidateAntiForgeryToken]
-public ActionResult Delete(int id, IFormCollection collection)
-{
-  try
-  {
-      return RedirectToAction(nameof(Index));
-  }
-  catch
-  {
-      return View();
-  }
-}
+        // GET: ProjectsController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
 
-*/
+        // POST: ProjectsController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+          try
+          {
+                _projectService.Delete(id);
+                return View();
+            }
+          catch
+          {
+              return View();
+          }
+        }
+
+        public ActionResult DeleteUser(string username)
+        {
+            return View();
+        }
+
+
     }
 }

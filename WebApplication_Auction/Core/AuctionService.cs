@@ -51,5 +51,15 @@ namespace ProjectApp.Core
         {
             return _auctionPersitence.GetAllOnGoing(DateTime.Now);
         }
+
+        public void Delete(int id)
+        {
+            _auctionPersitence.Delete(id);
+        }
+
+        public List<Auction> GetAllBidOnByUserName(string userName)
+        {
+            return _auctionPersitence.GetAllBidOnByUserName(userName);
+        }
     }
 }

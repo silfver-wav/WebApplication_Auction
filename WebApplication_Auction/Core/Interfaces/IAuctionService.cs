@@ -12,5 +12,8 @@
         void AddBid(int id, Bid bid);
 
         List<Auction> GetAllOnGoing();
+        void Delete(int id);
+
+        public List<Auction> GetAllBidOnByUserName(string userName);
     }
 }

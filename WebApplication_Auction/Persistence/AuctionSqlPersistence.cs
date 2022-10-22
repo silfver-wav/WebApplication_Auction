@@ -19,7 +19,6 @@ namespace ProjectApp.Persistence
 
         public List<Auction> GetAllByUserName(string userName)
         {
-            /*
             var projectDbs = _dbContext.ProjectDbs
                 .Where(p => p.UserName.Equals(userName)) // updated for Identity
                 .ToList();
@@ -32,7 +31,10 @@ namespace ProjectApp.Persistence
             }
 
             return result;
-            */
+        }
+
+        public List<Auction> GetAllBidOnByUserName(string userName)
+        {
             var projectDbs = _dbContext.ProjectDbs
             .Where(p => p.UserName.Equals(userName)) // updated for Identity
             .ToList();
@@ -101,6 +103,18 @@ namespace ProjectApp.Persistence
             }
 
             return result;
+        }
+
+        public void Delete(int id)
+        {
+            var auctionDb = _dbContext.ProjectDbs
+            .Include(p => p.TaskDbs)
+            .Where(p => p.Id == id)
+            .SingleOrDefault();
+
+            if (auctionDb != null)
+            _dbContext.ProjectDbs.Remove(auctionDb);
+            _dbContext.SaveChanges();
         }
 
         // Dispose

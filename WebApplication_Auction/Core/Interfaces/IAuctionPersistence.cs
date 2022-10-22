@@ -9,5 +9,9 @@
         void Update(int id, string description);
 
         List<Auction> GetAllOnGoing(DateTime dateTime);
+
+        void Delete(int id);
+
+        public List<Auction> GetAllBidOnByUserName(string userName);
     }
 }
