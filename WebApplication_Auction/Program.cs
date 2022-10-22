@@ -6,6 +6,10 @@ using ProjectApp.Persistence;
 using Microsoft.AspNetCore.Identity;
 using ProjectApp.Data;
 using ProjectApp.Areas.Identity.Data;
+using WebApplication_Auction.Persistence;
+using WebApplication_Auction.Core.Interfaces;
+using WebApplication_Auction.Areas.Identity.Data;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuctionService, AuctionService>();
 builder.Services.AddScoped<IAuctionPersistence, AuctionSqlPersistence>();
+builder.Services.AddScoped<IBidPersistence, BidSqlPersistence>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserPersistence, UserPersistence>();
 
 
 // db, with dependency injection
@@ -24,7 +31,7 @@ builder.Services.AddDbContext<AuctionDbContext>(options =>
 builder.Services.AddDbContext<ProjectAppIdentityContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectAppIdentityContextConnection")));
 builder.Services.AddDefaultIdentity<ProjectAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ProjectAppIdentityContext>();
+    .AddRoles<IdentityRole>().AddEntityFrameworkStores<ProjectAppIdentityContext>();
 
 // add auto mapper scanning (requires AutoMapper package)
 builder.Services.AddAutoMapper(typeof(Program));

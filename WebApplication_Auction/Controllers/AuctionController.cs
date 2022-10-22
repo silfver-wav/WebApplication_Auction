@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectApp.Core;
 using ProjectApp.Core.Interfaces;
 using ProjectApp.ViewModels;
+using System.Security.Principal;
+using WebApplication_Auction.Areas.Identity.Data;
 using WebApplication_Auction.ViewModels;
 
 namespace ProjectApp.Controllers
@@ -12,9 +14,12 @@ namespace ProjectApp.Controllers
     {
         private readonly IAuctionService _projectService;
 
-        public AuctionController(IAuctionService projectService)
+        private readonly IUserService _userService;
+
+        public AuctionController(IAuctionService projectService, IUserService userService)
         {
             _projectService = projectService;
+            _userService = userService;
         }
 
         // GET: ProjectsController
@@ -57,8 +62,10 @@ namespace ProjectApp.Controllers
             Auction project = _projectService.GetById(id);
             if (project == null) return NotFound();
 
+            /*
             // check if current user "owns" this project!
             if (!project.UserName.Equals(User.Identity.Name)) return BadRequest();
+            */
 
             AuctionDetailsVM detailsVM = AuctionDetailsVM.FromProject(project);
             return View(detailsVM);
@@ -129,13 +136,25 @@ namespace ProjectApp.Controllers
                 Bid bid = new Bid()
                 {
                     Amount = vm.Amount,
-                    UserName = User.Identity.Name
+                    UserName = User.Identity.Name // gör en get
                 };
 
                 _projectService.AddBid(id, bid);
                 return RedirectToAction("Index");
             }
             return View(vm);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ViewAllUsers()
+        {
+            List<User> users = _userService.GetAllUsers();
+            List<UserVM> userVMs = new();
+            foreach (var user in users)
+            {
+                userVMs.Add(UserVM.FromUser(user));
+            }
+            return View(userVMs);
         }
 
 

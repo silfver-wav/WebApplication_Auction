@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectApp.Data;
 
@@ -11,9 +12,10 @@ using ProjectApp.Data;
 namespace WebApplication_Auction.Migrations.ProjectAppIdentity
 {
     [DbContext(typeof(ProjectAppIdentityContext))]
-    partial class ProjectAppIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20221022145909_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,6 +202,9 @@ namespace WebApplication_Auction.Migrations.ProjectAppIdentity
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

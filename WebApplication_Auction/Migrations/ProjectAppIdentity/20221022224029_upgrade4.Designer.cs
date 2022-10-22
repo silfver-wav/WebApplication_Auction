@@ -9,11 +9,11 @@ using ProjectApp.Data;
 
 #nullable disable
 
-namespace ProjectApp.Migrations.ProjectAppIdentity
+namespace WebApplication_Auction.Migrations.ProjectAppIdentity
 {
     [DbContext(typeof(ProjectAppIdentityContext))]
-    [Migration("20221013142711_Initial")]
-    partial class Initial
+    [Migration("20221022224029_upgrade4")]
+    partial class upgrade4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

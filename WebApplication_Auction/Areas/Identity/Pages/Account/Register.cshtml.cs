@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
@@ -30,12 +31,14 @@ namespace ProjectApp.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ProjectAppUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        // private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<ProjectAppUser> userManager,
             IUserStore<ProjectAppUser> userStore,
             SignInManager<ProjectAppUser> signInManager,
             ILogger<RegisterModel> logger,
+            //RoleManager<IdentityRole> roleManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -44,6 +47,7 @@ namespace ProjectApp.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            //_roleManager = roleManager;
         }
 
         /// <summary>
@@ -118,6 +122,18 @@ namespace ProjectApp.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                /*
+                var adminRole = await _roleManager.FindByNameAsync("Customer");
+                if (adminRole == null)
+                {
+                    adminRole = new IdentityRole("Customer");
+                    await _roleManager.CreateAsync(adminRole);
+                }
+
+                await _userManager.AddToRoleAsync(user, adminRole.Name);
+                */
+
 
                 if (result.Succeeded)
                 {
