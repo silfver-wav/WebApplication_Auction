@@ -1,15 +1,18 @@
 ﻿using ProjectApp.Core.Interfaces;
 using System.Diagnostics;
+using WebApplication_Auction.Core.Interfaces;
 
 namespace ProjectApp.Core
 {
     public class AuctionService : IAuctionService
     {
         private IAuctionPersistence _auctionPersitence;
+        private IBidPersistence _bidPersitence;
 
-        public AuctionService(IAuctionPersistence projectPersitence)
+        public AuctionService(IAuctionPersistence projectPersitence, IBidPersistence bidPersitence)
         {
             _auctionPersitence = projectPersitence;
+            _bidPersitence = bidPersitence;
         }   
 
         public List<Auction> GetAllByUserName(string userName)
@@ -41,7 +44,7 @@ namespace ProjectApp.Core
             Auction auction = GetById(id);
             if(auction.FindHighestBid() >= bid.Amount || auction.StartingPrice > bid.Amount) throw new InvalidDataException();
             bid.LastUpdated = DateTime.Now;
-            _auctionPersitence.AddBid(id, bid);
+            _bidPersitence.Add(id, bid);
         }
 
         public List<Auction> GetAllOnGoing()

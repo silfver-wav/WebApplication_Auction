@@ -6,7 +6,7 @@ using Bid = ProjectApp.Core.Bid;
 
 namespace ProjectApp.Persistence
 {
-    public class AuctionSqlPersistence : IAuctionPersistence
+    public class AuctionSqlPersistence : IAuctionPersistence, IDisposable
     {
         private AuctionDbContext _dbContext;
         private IMapper _mapper;
@@ -87,14 +87,6 @@ namespace ProjectApp.Persistence
             _dbContext.SaveChanges();
         }
 
-        public void AddBid(int id, Bid bid)
-        {
-            BidDb pdb = _mapper.Map<BidDb>(bid);
-            pdb.ProjectId = id;
-            _dbContext.TaskDbs.Add(pdb);
-            _dbContext.SaveChanges();
-        }
-
         public List<Auction> GetAllOnGoing(DateTime dateTime)
         {
             var projectDbs = _dbContext.ProjectDbs
@@ -109,6 +101,27 @@ namespace ProjectApp.Persistence
             }
 
             return result;
+        }
+
+        // Dispose
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _dbContext.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
