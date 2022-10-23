@@ -24,9 +24,23 @@ namespace WebApplication_Auction.Persistence
 
         public void Add(int id, Bid bid)
         {
-            BidDb pdb = _mapper.Map<BidDb>(bid);
-            pdb.ProjectId = id;
-            _dbContext.TaskDbs.Add(pdb);
+            BidDb adb = _mapper.Map<BidDb>(bid);
+            adb.AuctionId = id;
+            _dbContext.BidDbs.Add(adb);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteByUserName(string userName)
+        {
+            var bidDbs = _dbContext.BidDbs
+            .Where(p => p.UserName.Equals(userName)) // updated for Identity
+            .ToList();
+
+            foreach (BidDb bdb in bidDbs)
+            {
+                _dbContext.BidDbs.Remove(bdb);
+            }
+
             _dbContext.SaveChanges();
         }
 

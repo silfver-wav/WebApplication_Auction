@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ProjectApp.Areas.Identity.Data;
+using WebApplication_Auction.Areas.Identity.Data.Persistence;
 
 namespace ProjectApp.Areas.Identity.Pages.Account
 {

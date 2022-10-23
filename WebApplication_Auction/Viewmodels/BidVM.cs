@@ -11,8 +11,6 @@ namespace ProjectApp.ViewModels
 
         public DateTime LastUpdated { get; set; }
 
-        public Status Status { get; set; }
-
         public string UserName { get; set; }
 
         public static BidVM FromBid(Bid task)
@@ -21,8 +19,7 @@ namespace ProjectApp.ViewModels
             {
                 Id = task.Id,
                 Amount = task.Amount,
-                LastUpdated = task.LastUpdated,
-                Status = task.Status,
+                LastUpdated = task.Date,
                 UserName = task.UserName,
             };
         }

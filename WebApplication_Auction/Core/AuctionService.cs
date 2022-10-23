@@ -43,7 +43,7 @@ namespace ProjectApp.Core
         {
             Auction auction = GetById(id);
             if(auction.FindHighestBid() >= bid.Amount || auction.StartingPrice > bid.Amount) throw new InvalidDataException();
-            bid.LastUpdated = DateTime.Now;
+            bid.Date = DateTime.Now;
             _bidPersitence.Add(id, bid);
         }
 
@@ -60,6 +60,12 @@ namespace ProjectApp.Core
         public List<Auction> GetAllBidOnByUserName(string userName)
         {
             return _auctionPersitence.GetAllBidOnByUserName(userName);
+        }
+
+        public void DeleteByUserName(string userName)
+        {
+            _auctionPersitence.DeleteByUserName(userName);
+            _bidPersitence.DeleteByUserName(userName);
         }
     }
 }

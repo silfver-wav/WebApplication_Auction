@@ -4,12 +4,12 @@ using ProjectApp.Core;
 using ProjectApp.Core.Interfaces;
 using ProjectApp.Persistence;
 using Microsoft.AspNetCore.Identity;
-using ProjectApp.Data;
-using ProjectApp.Areas.Identity.Data;
 using WebApplication_Auction.Persistence;
 using WebApplication_Auction.Core.Interfaces;
-using WebApplication_Auction.Areas.Identity.Data;
 using System.Security.Claims;
+using WebApplication_Auction.Areas.Identity.Data.Core.Interfaces;
+using WebApplication_Auction.Areas.Identity.Data.Core;
+using WebApplication_Auction.Areas.Identity.Data.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +29,7 @@ builder.Services.AddDbContext<AuctionDbContext>(options =>
 // identity configuration
 // the first statement is missing from the scaffolding
 builder.Services.AddDbContext<ProjectAppIdentityContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ProjectAppIdentityContextConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AuctionAppIdentityContextConnection")));
 builder.Services.AddDefaultIdentity<ProjectAppUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>().AddEntityFrameworkStores<ProjectAppIdentityContext>();
 

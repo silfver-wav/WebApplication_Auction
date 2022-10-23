@@ -1,4 +1,4 @@
-﻿using WebApplication_Auction.Areas.Identity.Data;
+﻿using WebApplication_Auction.Areas.Identity.Data.Core;
 
 namespace WebApplication_Auction.ViewModels
 {

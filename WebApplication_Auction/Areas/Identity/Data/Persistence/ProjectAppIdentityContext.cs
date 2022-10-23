@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProjectApp.Areas.Identity.Data;
 using System.Reflection.Emit;
 
-namespace ProjectApp.Data;
+namespace WebApplication_Auction.Areas.Identity.Data.Persistence;
 
 public class ProjectAppIdentityContext : IdentityDbContext<ProjectAppUser>
 {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ProjectApp.Areas.Identity.Data;
-using WebApplication_Auction.Areas.Identity.Data;
+using WebApplication_Auction.Areas.Identity.Data.Core;
+using WebApplication_Auction.Areas.Identity.Data.Persistence;
 
 namespace WebApplication_Auction.Mappings
 {

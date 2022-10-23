@@ -1,4 +1,4 @@
-﻿namespace WebApplication_Auction.Areas.Identity.Data
+﻿namespace WebApplication_Auction.Areas.Identity.Data.Core
 {
     public class User
     {

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectApp.Core;
 using ProjectApp.Core.Interfaces;
+using ProjectApp.ViewModels;
 using Bid = ProjectApp.Core.Bid;
 
 namespace ProjectApp.Persistence
@@ -19,15 +20,15 @@ namespace ProjectApp.Persistence
 
         public List<Auction> GetAllByUserName(string userName)
         {
-            var projectDbs = _dbContext.ProjectDbs
+            var auctionDbs = _dbContext.AuctionDbs
                 .Where(p => p.UserName.Equals(userName)) // updated for Identity
                 .ToList();
 
             List<Auction> result = new List<Auction>();
-            foreach(AuctionDb pdb in projectDbs)
+            foreach(AuctionDb pdb in auctionDbs)
             {
-                Auction project = _mapper.Map<Auction>(pdb);
-                result.Add(project);
+                Auction auction = _mapper.Map<Auction>(pdb);
+                result.Add(auction);
             }
 
             return result;
@@ -35,18 +36,18 @@ namespace ProjectApp.Persistence
 
         public List<Auction> GetAllBidOnByUserName(string userName)
         {
-            var projectDbs = _dbContext.ProjectDbs
-            .Where(p => p.UserName.Equals(userName)) // updated for Identity
+            var auctionDbs = _dbContext.AuctionDbs
+            .Where(p => p.UserName.Equals(userName))
             .ToList();
 
 
-            List<BidDb> bidsDb = _dbContext.TaskDbs.Where(p => p.UserName == userName).ToList();
+            List<BidDb> bidsDb = _dbContext.BidDbs.Where(p => p.UserName == userName).ToList();
 
             List<Auction> result = new List<Auction>();
             for (int i = 0; i < bidsDb.Count; i++)
             {
-                int id = bidsDb[i].ProjectId;
-                var adb = _dbContext.ProjectDbs.Where(p => p.Id == id && p.ExpirationDate.CompareTo(DateTime.Now) > 0).SingleOrDefault();
+                int id = bidsDb[i].AuctionId;
+                var adb = _dbContext.AuctionDbs.Where(p => p.Id == id && p.ExpirationDate.CompareTo(DateTime.Now) > 0).SingleOrDefault();
                 if (adb == null)
                     continue;
                 result.Add(_mapper.Map<Auction>(adb));
@@ -58,29 +59,29 @@ namespace ProjectApp.Persistence
         public Auction GetById(int id)
         {
             // eager loading
-            var projectDb = _dbContext.ProjectDbs
-                .Include(p => p.TaskDbs)
+            var auctionDb = _dbContext.AuctionDbs
+                .Include(p => p.BidDbs)
                 .Where(p => p.Id == id)
                 .SingleOrDefault();
 
-            Auction project = _mapper.Map<Auction>(projectDb);
-            foreach(BidDb tdb in projectDb.TaskDbs)
+            Auction auction = _mapper.Map<Auction>(auctionDb);
+            foreach(BidDb tdb in auctionDb.BidDbs)
             {
-                project.AddTask(_mapper.Map<Bid>(tdb));
+                auction.AddBid(_mapper.Map<Bid>(tdb));
             }
-            return project;
+            return auction;
         }
 
-        public void Add(Auction project)
+        public void Add(Auction auction)
         {
-            AuctionDb pdb = _mapper.Map<AuctionDb>(project);
-            _dbContext.ProjectDbs.Add(pdb);
+            AuctionDb adb = _mapper.Map<AuctionDb>(auction);
+            _dbContext.AuctionDbs.Add(adb);
             _dbContext.SaveChanges();
         }
 
         public void Update(int id, string description)
         {
-             var auctionDb = _dbContext.ProjectDbs
+             var auctionDb = _dbContext.AuctionDbs
             .Where(p => p.Id == id)
             .SingleOrDefault();
 
@@ -91,15 +92,15 @@ namespace ProjectApp.Persistence
 
         public List<Auction> GetAllOnGoing(DateTime dateTime)
         {
-            var projectDbs = _dbContext.ProjectDbs
-            .Where(p => p.ExpirationDate.CompareTo(dateTime)>0) // updated for Identity
+            var auctionDbs = _dbContext.AuctionDbs
+            .Where(p => p.ExpirationDate.CompareTo(dateTime)>0)
             .ToList();
 
             List<Auction> result = new List<Auction>();
-            foreach (AuctionDb pdb in projectDbs)
+            foreach (AuctionDb adb in auctionDbs)
             {
-                Auction project = _mapper.Map<Auction>(pdb);
-                result.Add(project);
+                Auction auction = _mapper.Map<Auction>(adb);
+                result.Add(auction);
             }
 
             return result;
@@ -107,13 +108,26 @@ namespace ProjectApp.Persistence
 
         public void Delete(int id)
         {
-            var auctionDb = _dbContext.ProjectDbs
-            .Include(p => p.TaskDbs)
+            var auctionDb = _dbContext.AuctionDbs
             .Where(p => p.Id == id)
             .SingleOrDefault();
 
             if (auctionDb != null)
-            _dbContext.ProjectDbs.Remove(auctionDb);
+            _dbContext.AuctionDbs.Remove(auctionDb);
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteByUserName(string userName)
+        {
+            var auctionDbs = _dbContext.AuctionDbs
+            .Where(p => p.UserName.Equals(userName))
+            .ToList();
+
+            foreach (AuctionDb adb in auctionDbs)
+            {
+                _dbContext.AuctionDbs.Remove(adb);
+            }
+
             _dbContext.SaveChanges();
         }
 

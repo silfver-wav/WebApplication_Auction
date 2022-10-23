@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectApp.Core;
 using ProjectApp.Core.Interfaces;
 using ProjectApp.ViewModels;
-using System.Security.Principal;
-using WebApplication_Auction.Areas.Identity.Data;
+using WebApplication_Auction.Areas.Identity.Data.Core;
+using WebApplication_Auction.Areas.Identity.Data.Core.Interfaces;
 using WebApplication_Auction.ViewModels;
 
 namespace ProjectApp.Controllers
@@ -12,20 +12,20 @@ namespace ProjectApp.Controllers
     [Authorize]
     public class AuctionController : Controller
     {
-        private readonly IAuctionService _projectService;
+        private readonly IAuctionService _auctionService;
 
         private readonly IUserService _userService;
 
-        public AuctionController(IAuctionService projectService, IUserService userService)
+        public AuctionController(IAuctionService auctionService, IUserService userService)
         {
-            _projectService = projectService;
+            _auctionService = auctionService;
             _userService = userService;
         }
 
         // GET: ProjectsController
         public ActionResult Index()
         {
-            List<Auction> auctions = _projectService.GetAllOnGoing();
+            List<Auction> auctions = _auctionService.GetAllOnGoing();
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
             {
@@ -37,7 +37,7 @@ namespace ProjectApp.Controllers
         public ActionResult OnGoingAuctions()
         {
             string userName = User.Identity.Name; // should be unique
-            List<Auction> auctions = _projectService.GetAllBidOnByUserName(userName);
+            List<Auction> auctions = _auctionService.GetAllBidOnByUserName(userName);
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
             {
@@ -49,15 +49,10 @@ namespace ProjectApp.Controllers
         // GET: ProjectsController/Details/5
         public ActionResult Details(int id)
         {
-            Auction project = _projectService.GetById(id);
+            Auction project = _auctionService.GetById(id);
             if (project == null) return NotFound();
 
-            /*
-            // check if current user "owns" this project!
-            if (!project.UserName.Equals(User.Identity.Name)) return BadRequest();
-            */
-
-            AuctionDetailsVM detailsVM = AuctionDetailsVM.FromProject(project);
+            AuctionDetailsVM detailsVM = AuctionDetailsVM.FromAuction(project);
             return View(detailsVM);
         }
          
@@ -82,7 +77,7 @@ namespace ProjectApp.Controllers
                     StartingPrice = vm.StartingPrice,
                     UserName = User.Identity.Name
                 };
-                _projectService.Add(project);
+                _auctionService.Add(project);
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -103,7 +98,7 @@ namespace ProjectApp.Controllers
         {
           try
           {
-              _projectService.Update(id, vm.Description);
+              _auctionService.Update(id, vm.Description);
                return RedirectToAction("Index");
             }
           catch
@@ -129,7 +124,7 @@ namespace ProjectApp.Controllers
                     UserName = User.Identity.Name // gör en get
                 };
 
-                _projectService.AddBid(id, bid);
+                _auctionService.AddBid(id, bid);
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -150,7 +145,7 @@ namespace ProjectApp.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ViewAllAuctionsByUser(string username)
         {
-            List<Auction> auctions = _projectService.GetAllByUserName(username);
+            List<Auction> auctions = _auctionService.GetAllByUserName(username);
             List<AuctionVM> auctionVMs = new();
             foreach (var auction in auctions)
             {
@@ -161,20 +156,25 @@ namespace ProjectApp.Controllers
 
 
         // GET: ProjectsController/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            return View();
+            Auction project = _auctionService.GetById(id);
+            if (project == null) return NotFound();
+
+            AuctionDetailsVM detailsVM = AuctionDetailsVM.FromAuction(project);
+            return View(detailsVM);
         }
 
         // POST: ProjectsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, AuctionDetailsVM vm)
         {
           try
           {
-                _projectService.Delete(id);
-                return View();
+                _auctionService.Delete(id);
+                return RedirectToAction("ViewAllAuctionsByUser");
             }
           catch
           {
@@ -182,11 +182,25 @@ namespace ProjectApp.Controllers
           }
         }
 
-        public ActionResult DeleteUser(string username)
-        {
-            return View();
-        }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteUser(string userName)
+        {
+            // check if current user tries to delete them self!
+            if (userName.Equals(User.Identity.Name)) return BadRequest();
+
+            try
+            {
+                Console.WriteLine("userName: " + userName);
+                _userService.Delete(userName);
+                _auctionService.DeleteByUserName(userName);
+                return RedirectToAction("ViewAllUsers");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
     }
 }

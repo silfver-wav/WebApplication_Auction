@@ -21,7 +21,7 @@ namespace ProjectApp.ViewModels
 
         public string UserName { get; set; }
 
-        public static AuctionDetailsVM FromProject(Auction auction)
+        public static AuctionDetailsVM FromAuction(Auction auction)
         {
             var detailsVM = new AuctionDetailsVM()
             {

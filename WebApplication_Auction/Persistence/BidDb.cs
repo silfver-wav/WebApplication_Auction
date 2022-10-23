@@ -16,14 +16,11 @@ namespace ProjectApp.Persistence
         [DataType(DataType.DateTime)]
         public DateTime LastUpdated { get; set; }
 
-        [Required]
-        public Status Status { get; set; }
-
         // FK and navigation property
-        [ForeignKey("ProjectId")]
-        public AuctionDb ProjectDb { get; set; }
+        [ForeignKey("AuctionId")]
+        public AuctionDb AuctionDb { get; set; }
 
-        public int ProjectId { get; set; }
+        public int AuctionId { get; set; }
 
         [Required]
         public string UserName { get; set; }

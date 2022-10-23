@@ -6,8 +6,8 @@ namespace ProjectApp.Persistence
     {
         public AuctionDbContext(DbContextOptions<AuctionDbContext> options) : base(options) { }
 
-        public DbSet<BidDb> TaskDbs { get; set; }
-        public DbSet<AuctionDb> ProjectDbs { get; set; }
+        public DbSet<BidDb> BidDbs { get; set; }
+        public DbSet<AuctionDb> AuctionDbs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace ProjectApp.Persistence
                 ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50),
                 StartingPrice = 20,
                 UserName = "linus.silfver@gmail.com",
-                TaskDbs = new List<BidDb>()
+                BidDbs = new List<BidDb>()
             };
             modelBuilder.Entity<AuctionDb>().HasData(pdb);
             
@@ -29,8 +29,7 @@ namespace ProjectApp.Persistence
                 Id = -1,
                 Amount = 50,
                 LastUpdated = DateTime.Now,
-                Status = Core.Status.IN_PROGRESS,
-                ProjectId = -1,
+                AuctionId = -1,
                 UserName = "linus@kth.se"
             };
             BidDb tdb2 = new BidDb()
@@ -38,8 +37,7 @@ namespace ProjectApp.Persistence
                 Id = -2,
                 Amount = 100,
                 LastUpdated = DateTime.Now,
-                Status = Core.Status.TO_DO,
-                ProjectId = -1,
+                AuctionId = -1,
                 UserName = "victor@kth.se"
             };
             modelBuilder.Entity<BidDb>().HasData(tdb1);

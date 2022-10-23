@@ -38,15 +38,14 @@ namespace ProjectApp.Core
 
         public Auction() { }
 
-        public void AddTask(Bid newTask)
+        public void AddBid(Bid newBid)
         {
-            _bids.Add(newTask);
+            _bids.Add(newBid);
         }
 
         public bool IsCompleted()
         {
-            if (_bids.Count == 0) return true;
-            return _bids.All(t => t.Status == Status.DONE);
+            return ExpirationDate.CompareTo(DateTime.Now) < 0;
         }
 
         public int FindHighestBid()

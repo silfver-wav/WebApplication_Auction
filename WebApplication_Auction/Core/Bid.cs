@@ -6,53 +6,29 @@
 
         public int Amount { get; set; }
 
-        private DateTime _lastUpdated;
-        public DateTime LastUpdated { get; set; }
-
-        private Status _status;
+        public DateTime Date { get; set; }
 
         public string UserName { get; set; }
-        public Status Status
-        {
-            get => _status;
-            set
-            {
-                if (_status == Status.DONE && value != Status.DONE) 
-                    throw new InvalidOperationException("item is done");
-                _status = value;
-                _lastUpdated = DateTime.Now;
-            }
-        }
 
-        public Bid(int amount, Status status = Status.TO_DO, string userName = null)
+
+        public Bid(int id, int amount)
         {
+            Id = id;
             Amount = amount;
-            _lastUpdated = DateTime.Now;
-            _status = status;
-            UserName = userName;
         }
 
-        public Bid(int id, string descr, Status status = Status.TO_DO)
+        public Bid(int id, int amount, DateTime date)
         {
             Id = id;
-            //Description = descr;
-            _lastUpdated = DateTime.Now;
-            _status = status;
-        }
-
-        public Bid(int id, string descr, DateTime lastUpdated, Status status = Status.TO_DO)
-        {
-            Id = id;
-            //Description = descr;
-            _lastUpdated = lastUpdated;
-            _status = status;
+            Amount = amount;
+            Date = date;
         }
 
         public Bid() { }
 
         public override string ToString()
         {
-            return $"{Id}: {Amount} - {Status}";
+            return $"{Id}: {Amount} - {Date}";
         }
     }
 }

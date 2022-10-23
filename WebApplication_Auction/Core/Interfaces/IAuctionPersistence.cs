@@ -13,5 +13,7 @@
         void Delete(int id);
 
         public List<Auction> GetAllBidOnByUserName(string userName);
+
+        public void DeleteByUserName(string userName);
     }
 }
