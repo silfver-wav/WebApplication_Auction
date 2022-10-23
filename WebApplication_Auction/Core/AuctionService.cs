@@ -48,5 +48,11 @@ namespace ProjectApp.Core
         {
             return _auctionPersitence.GetAllOnGoing(DateTime.Now);
         }
+        
+        public List<Auction> GetAllWonAuctions(string userName)
+        {
+            return _auctionPersitence.GetAllWonAuctions(DateTime.Now, userName);
+        }
+       
     }
 }

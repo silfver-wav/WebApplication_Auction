@@ -29,6 +29,6 @@ namespace ProjectApp.Persistence
         [Required]
         public int StartingPrice { get; set; }
 
-        public List<BidDb> TaskDbs { get; set; } = new List<BidDb>();
+        public List<BidDb> BidDBs { get; set; } = new List<BidDb>();
     }
 }

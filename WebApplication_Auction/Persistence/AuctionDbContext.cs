@@ -20,7 +20,7 @@ namespace ProjectApp.Persistence
                 ExpirationDate = new DateTime(2023, 12, 12, 2, 30, 50),
                 StartingPrice = 20,
                 UserName = "linus.silfver@gmail.com",
-                TaskDbs = new List<BidDb>()
+                BidDBs = new List<BidDb>()
             };
             modelBuilder.Entity<AuctionDb>().HasData(pdb);
             

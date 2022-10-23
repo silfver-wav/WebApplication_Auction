@@ -11,5 +11,6 @@
         void AddBid(int id, Bid bid);
 
         List<Auction> GetAllOnGoing(DateTime dateTime);
+        List<Auction> GetAllWonAuctions(DateTime dateTime, string userName);
     }
 }

@@ -12,5 +12,7 @@
         void AddBid(int id, Bid bid);
 
         List<Auction> GetAllOnGoing();
+
+        List<Auction> GetAllWonAuctions(string userName);
     }
 }

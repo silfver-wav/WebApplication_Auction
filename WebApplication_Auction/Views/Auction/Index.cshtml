@@ -10,7 +10,10 @@
     <a asp-action="Create">Create New</a>
 </p>
 <p>
-    <a asp-action="OnGoingAuctions">Users Auctions</a>
+    <a asp-action="OnGoingAuctions">Auctions by @User.Identity.Name</a>
+</p>
+<p>
+    <a asp-action="WonAuctions">Auctions won by @User.Identity.Name</a>
 </p>
 <table class="table">
     <thead>

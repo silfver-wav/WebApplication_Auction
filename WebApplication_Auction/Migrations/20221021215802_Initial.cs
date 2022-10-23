@@ -28,7 +28,7 @@ namespace WebApplication_Auction.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskDbs",
+                name: "BidDBs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -56,25 +56,25 @@ namespace WebApplication_Auction.Migrations
                 values: new object[] { -1, new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3311), "description", new DateTime(2023, 12, 12, 2, 30, 50, 0, DateTimeKind.Unspecified), 20, "Learning ASP.NET Core with MVC", "linus.silfver@gmail.com" });
 
             migrationBuilder.InsertData(
-                table: "TaskDbs",
+                table: "BidDBs",
                 columns: new[] { "Id", "Amount", "LastUpdated", "ProjectId", "Status", "UserName" },
                 values: new object[] { -2, 100, new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3655), -1, 0, "victor@kth.se" });
 
             migrationBuilder.InsertData(
-                table: "TaskDbs",
+                table: "BidDBs",
                 columns: new[] { "Id", "Amount", "LastUpdated", "ProjectId", "Status", "UserName" },
                 values: new object[] { -1, 50, new DateTime(2022, 10, 21, 23, 58, 2, 486, DateTimeKind.Local).AddTicks(3651), -1, 1, "linus@kth.se" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskDbs_ProjectId",
-                table: "TaskDbs",
+                table: "BidDBs",
                 column: "ProjectId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TaskDbs");
+                name: "BidDBs");
 
             migrationBuilder.DropTable(
                 name: "ProjectDbs");

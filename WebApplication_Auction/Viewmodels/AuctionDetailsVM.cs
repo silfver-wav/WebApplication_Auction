@@ -21,6 +21,8 @@ namespace ProjectApp.ViewModels
 
         public string UserName { get; set; }
 
+        public int HighestBid { get; set; }
+
         public static AuctionDetailsVM FromProject(Auction auction)
         {
             var detailsVM = new AuctionDetailsVM()
@@ -32,6 +34,7 @@ namespace ProjectApp.ViewModels
                 ExpirationDate = auction.ExpirationDate,
                 StartingPrice = auction.StartingPrice,
                 IsCompleted = auction.IsCompleted(),
+                HighestBid = auction.FindHighestBid(),
                 UserName = auction.UserName
 
             };
@@ -39,6 +42,7 @@ namespace ProjectApp.ViewModels
             {
                 detailsVM.BidsVMs.Add(BidVM.FromBid(task));
             }
+
 
             return detailsVM;
         }

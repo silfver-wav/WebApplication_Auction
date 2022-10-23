@@ -36,6 +36,7 @@ namespace ProjectApp.Controllers
             {
                 auctionVMs.Add(AuctionVM.FromAuction(auction));
             }
+            
             return View(auctionVMs);
         }
 
@@ -49,6 +50,21 @@ namespace ProjectApp.Controllers
                 auctionVMs.Add(AuctionVM.FromAuction(auction));
             }
             return View(auctionVMs);
+        }
+
+        public ActionResult WonAuctions()
+        {
+            string userName = User.Identity.Name;
+            List<Auction> auctions = _projectService.GetAllWonAuctions(userName);
+            List<AuctionVM> auctionVMs = new();
+
+
+            foreach (var auction in auctions)
+            {
+                auctionVMs.Add(AuctionVM.FromAuction(auction));
+            }
+            return View(auctionVMs);
+           
         }
 
         // GET: ProjectsController/Details/5

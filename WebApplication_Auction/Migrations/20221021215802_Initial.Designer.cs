@@ -100,7 +100,7 @@ namespace WebApplication_Auction.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("TaskDbs");
+                    b.ToTable("BidDBs");
 
                     b.HasData(
                         new
@@ -126,7 +126,7 @@ namespace WebApplication_Auction.Migrations
             modelBuilder.Entity("ProjectApp.Persistence.BidDb", b =>
                 {
                     b.HasOne("ProjectApp.Persistence.AuctionDb", "ProjectDb")
-                        .WithMany("TaskDbs")
+                        .WithMany("BidDBs")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -136,7 +136,7 @@ namespace WebApplication_Auction.Migrations
 
             modelBuilder.Entity("ProjectApp.Persistence.AuctionDb", b =>
                 {
-                    b.Navigation("TaskDbs");
+                    b.Navigation("BidDBs");
                 });
 #pragma warning restore 612, 618
         }

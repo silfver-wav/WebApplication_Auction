@@ -13,6 +13,7 @@ namespace ProjectApp.Core
 
         public string UserName { get; set; }
 
+
         private List<Bid> _bids = new List<Bid>();
         public IEnumerable<Bid> Bids => _bids;
 
@@ -41,6 +42,8 @@ namespace ProjectApp.Core
         public void AddTask(Bid newTask)
         {
             _bids.Add(newTask);
+            System.Diagnostics.Debug.WriteLine("Bid has been added");
+            System.Diagnostics.Debug.WriteLine(_bids.Count.ToString());
         }
 
         public bool IsCompleted()
@@ -51,6 +54,8 @@ namespace ProjectApp.Core
 
         public int FindHighestBid()
         {
+
+            System.Diagnostics.Debug.WriteLine(_bids.Count.ToString());
             if (_bids.Count == 0)
             {
                 return 0;
@@ -58,6 +63,7 @@ namespace ProjectApp.Core
             return _bids.Max(t => t.Amount);
 
         }
+     
 
         public override string ToString()
         {

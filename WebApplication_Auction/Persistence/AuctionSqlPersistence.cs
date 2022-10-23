@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging.Signing;
 using ProjectApp.Core;
 using ProjectApp.Core.Interfaces;
+using System.Collections.Generic;
 using Bid = ProjectApp.Core.Bid;
 
 namespace ProjectApp.Persistence
@@ -57,12 +59,12 @@ namespace ProjectApp.Persistence
         {
             // eager loading
             var projectDb = _dbContext.ProjectDbs
-                .Include(p => p.TaskDbs)
+                .Include(p => p.BidDBs)
                 .Where(p => p.Id == id)
                 .SingleOrDefault();
 
             Auction project = _mapper.Map<Auction>(projectDb);
-            foreach(BidDb tdb in projectDb.TaskDbs)
+            foreach (BidDb tdb in projectDb.BidDBs)
             {
                 project.AddTask(_mapper.Map<Bid>(tdb));
             }
@@ -78,9 +80,9 @@ namespace ProjectApp.Persistence
 
         public void Update(int id, string description)
         {
-             var auctionDb = _dbContext.ProjectDbs
-            .Where(p => p.Id == id)
-            .SingleOrDefault();
+            var auctionDb = _dbContext.ProjectDbs
+           .Where(p => p.Id == id)
+           .SingleOrDefault();
 
             auctionDb.Description = description;
             _dbContext.Update(auctionDb);
@@ -98,7 +100,7 @@ namespace ProjectApp.Persistence
         public List<Auction> GetAllOnGoing(DateTime dateTime)
         {
             var projectDbs = _dbContext.ProjectDbs
-            .Where(p => p.ExpirationDate.CompareTo(dateTime)>0) // updated for Identity
+            .Where(p => p.ExpirationDate.CompareTo(dateTime) > 0) // updated for Identity
             .ToList();
 
             List<Auction> result = new List<Auction>();
@@ -110,5 +112,37 @@ namespace ProjectApp.Persistence
 
             return result;
         }
+        public List<Auction> GetAllWonAuctions(DateTime dateTime, string userName)
+        {
+            //Get all expired auctions
+            var auctionDbs = _dbContext.ProjectDbs
+            .Include(p => p.BidDBs)
+            .Where(p => p.ExpirationDate.CompareTo(dateTime) <= 0) // updated for Identity
+            .ToList();
+
+            List<Auction> result = new List<Auction>();
+            List<BidDb> bids = new List<BidDb>();
+
+
+            //Loop over
+            for (int i = 0; i < auctionDbs.Count; i++)
+            {
+                bids = auctionDbs[i].BidDBs;
+
+                for (int j = 0; j < bids.Count; j++)
+                {
+                    int highestBid = auctionDbs[i].BidDBs.Max(p => p.Amount);
+                    if (bids[j].Amount == highestBid && bids[j].UserName.Equals(userName))
+                    {
+                        Auction auction = _mapper.Map<Auction>(bids[j].ProjectDb);
+                        result.Add(auction);
+                    }
+                }
+               
+            }
+            return result;
+
+        }
+        
     }
 }
